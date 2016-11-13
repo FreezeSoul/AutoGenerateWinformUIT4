@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MWTSModelStoreContainer" CdmEntityContainer="MWTSEntities">
+    <EntitySetMapping Name="ActiveSubscriptions">
+      <EntityTypeMapping TypeName="MWTSModel.ActiveSubscriptions">
+        <MappingFragment StoreEntitySet="ActiveSubscriptions">
+          <ScalarProperty Name="TotalFailures" ColumnName="TotalFailures" />
+          <ScalarProperty Name="TotalSuccesses" ColumnName="TotalSuccesses" />
+          <ScalarProperty Name="TotalNotifications" ColumnName="TotalNotifications" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+          <ScalarProperty Name="ActiveID" ColumnName="ActiveID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CachePolicy">
+      <EntityTypeMapping TypeName="MWTSModel.CachePolicy">
+        <MappingFragment StoreEntitySet="CachePolicy">
+          <ScalarProperty Name="CacheExpiration" ColumnName="CacheExpiration" />
+          <ScalarProperty Name="ExpirationFlags" ColumnName="ExpirationFlags" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="CachePolicyID" ColumnName="CachePolicyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Catalog">
+      <EntityTypeMapping TypeName="MWTSModel.Catalog">
+        <MappingFragment StoreEntitySet="Catalog">
+          <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+          <ScalarProperty Name="SubType" ColumnName="SubType" />
+          <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
+          <ScalarProperty Name="ExecutionFlag" ColumnName="ExecutionFlag" />
+          <ScalarProperty Name="PolicyRoot" ColumnName="PolicyRoot" />
+          <ScalarProperty Name="PolicyID" ColumnName="PolicyID" />
+          <ScalarProperty Name="Parameter" ColumnName="Parameter" />
+          <ScalarProperty Name="SnapshotLimit" ColumnName="SnapshotLimit" />
+          <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+          <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Property" ColumnName="Property" />
+          <ScalarProperty Name="LinkSourceID" ColumnName="LinkSourceID" />
+          <ScalarProperty Name="SnapshotDataID" ColumnName="SnapshotDataID" />
+          <ScalarProperty Name="Intermediate" ColumnName="Intermediate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChunkData">
+      <EntityTypeMapping TypeName="MWTSModel.ChunkData">
+        <MappingFragment StoreEntitySet="ChunkData">
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ChunkType" ColumnName="ChunkType" />
+          <ScalarProperty Name="ChunkName" ColumnName="ChunkName" />
+          <ScalarProperty Name="ChunkFlags" ColumnName="ChunkFlags" />
+          <ScalarProperty Name="SnapshotDataID" ColumnName="SnapshotDataID" />
+          <ScalarProperty Name="ChunkID" ColumnName="ChunkID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChunkSegmentMapping">
+      <EntityTypeMapping TypeName="MWTSModel.ChunkSegmentMapping">
+        <MappingFragment StoreEntitySet="ChunkSegmentMapping">
+          <ScalarProperty Name="ActualByteCount" ColumnName="ActualByteCount" />
+          <ScalarProperty Name="LogicalByteCount" ColumnName="LogicalByteCount" />
+          <ScalarProperty Name="StartByte" ColumnName="StartByte" />
+          <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
+          <ScalarProperty Name="ChunkId" ColumnName="ChunkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConfigurationInfo">
+      <EntityTypeMapping TypeName="MWTSModel.ConfigurationInfo">
+        <MappingFragment StoreEntitySet="ConfigurationInfo">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ConfigInfoID" ColumnName="ConfigInfoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSets">
+      <EntityTypeMapping TypeName="MWTSModel.DataSets">
+        <MappingFragment StoreEntitySet="DataSets">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LinkID" ColumnName="LinkID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSource">
+      <EntityTypeMapping TypeName="MWTSModel.DataSource">
+        <MappingFragment StoreEntitySet="DataSource">
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Flags" ColumnName="Flags" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="OriginalConnectStringExpressionBased" ColumnName="OriginalConnectStringExpressionBased" />
+          <ScalarProperty Name="OriginalConnectionString" ColumnName="OriginalConnectionString" />
+          <ScalarProperty Name="ConnectionString" ColumnName="ConnectionString" />
+          <ScalarProperty Name="Prompt" ColumnName="Prompt" />
+          <ScalarProperty Name="CredentialRetrieval" ColumnName="CredentialRetrieval" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="DSID" ColumnName="DSID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DBUpgradeHistory">
+      <EntityTypeMapping TypeName="MWTSModel.DBUpgradeHistory">
+        <MappingFragment StoreEntitySet="DBUpgradeHistory">
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="DbVersion" ColumnName="DbVersion" />
+          <ScalarProperty Name="UpgradeID" ColumnName="UpgradeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Event">
+      <EntityTypeMapping TypeName="MWTSModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+          <ScalarProperty Name="ProcessHeartbeat" ColumnName="ProcessHeartbeat" />
+          <ScalarProperty Name="ProcessStart" ColumnName="ProcessStart" />
+          <ScalarProperty Name="TimeEntered" ColumnName="TimeEntered" />
+          <ScalarProperty Name="EventData" ColumnName="EventData" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExecutionLogStorage">
+      <EntityTypeMapping TypeName="MWTSModel.ExecutionLogStorage">
+        <MappingFragment StoreEntitySet="ExecutionLogStorage">
+          <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+          <ScalarProperty Name="RowCount" ColumnName="RowCount" />
+          <ScalarProperty Name="ByteCount" ColumnName="ByteCount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="TimeRendering" ColumnName="TimeRendering" />
+          <ScalarProperty Name="TimeProcessing" ColumnName="TimeProcessing" />
+          <ScalarProperty Name="TimeDataRetrieval" ColumnName="TimeDataRetrieval" />
+          <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
+          <ScalarProperty Name="TimeStart" ColumnName="TimeStart" />
+          <ScalarProperty Name="ReportAction" ColumnName="ReportAction" />
+          <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+          <ScalarProperty Name="Format" ColumnName="Format" />
+          <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+          <ScalarProperty Name="ExecutionId" ColumnName="ExecutionId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="InstanceName" ColumnName="InstanceName" />
+          <ScalarProperty Name="LogEntryId" ColumnName="LogEntryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="History">
+      <EntityTypeMapping TypeName="MWTSModel.History">
+        <MappingFragment StoreEntitySet="History">
+          <ScalarProperty Name="SnapshotDate" ColumnName="SnapshotDate" />
+          <ScalarProperty Name="SnapshotDataID" ColumnName="SnapshotDataID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Keys">
+      <EntityTypeMapping TypeName="MWTSModel.Keys">
+        <MappingFragment StoreEntitySet="Keys">
+          <ScalarProperty Name="SymmetricKey" ColumnName="SymmetricKey" />
+          <ScalarProperty Name="PublicKey" ColumnName="PublicKey" />
+          <ScalarProperty Name="Client" ColumnName="Client" />
+          <ScalarProperty Name="InstanceName" ColumnName="InstanceName" />
+          <ScalarProperty Name="InstallationID" ColumnName="InstallationID" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModelDrill">
+      <EntityTypeMapping TypeName="MWTSModel.ModelDrill">
+        <MappingFragment StoreEntitySet="ModelDrill">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ModelItemID" ColumnName="ModelItemID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+          <ScalarProperty Name="ModelDrillID" ColumnName="ModelDrillID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModelItemPolicy">
+      <EntityTypeMapping TypeName="MWTSModel.ModelItemPolicy">
+        <MappingFragment StoreEntitySet="ModelItemPolicy">
+          <ScalarProperty Name="PolicyID" ColumnName="PolicyID" />
+          <ScalarProperty Name="ModelItemID" ColumnName="ModelItemID" />
+          <ScalarProperty Name="CatalogItemID" ColumnName="CatalogItemID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="MWTSModel.Notifications">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="ReportZone" ColumnName="ReportZone" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ProcessHeartbeat" ColumnName="ProcessHeartbeat" />
+          <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+          <ScalarProperty Name="IsDataDriven" ColumnName="IsDataDriven" />
+          <ScalarProperty Name="SubscriptionOwnerID" ColumnName="SubscriptionOwnerID" />
+          <ScalarProperty Name="DeliveryExtension" ColumnName="DeliveryExtension" />
+          <ScalarProperty Name="SubscriptionLastRunTime" ColumnName="SubscriptionLastRunTime" />
+          <ScalarProperty Name="Attempt" ColumnName="Attempt" />
+          <ScalarProperty Name="ProcessAfter" ColumnName="ProcessAfter" />
+          <ScalarProperty Name="NotificationEntered" ColumnName="NotificationEntered" />
+          <ScalarProperty Name="ProcessStart" ColumnName="ProcessStart" />
+          <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+          <ScalarProperty Name="Locale" ColumnName="Locale" />
+          <ScalarProperty Name="ExtensionSettings" ColumnName="ExtensionSettings" />
+          <ScalarProperty Name="SnapShotDate" ColumnName="SnapShotDate" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="ActivationID" ColumnName="ActivationID" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Policies">
+      <EntityTypeMapping TypeName="MWTSModel.Policies">
+        <MappingFragment StoreEntitySet="Policies">
+          <ScalarProperty Name="PolicyFlag" ColumnName="PolicyFlag" />
+          <ScalarProperty Name="PolicyID" ColumnName="PolicyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PolicyUserRole">
+      <EntityTypeMapping TypeName="MWTSModel.PolicyUserRole">
+        <MappingFragment StoreEntitySet="PolicyUserRole">
+          <ScalarProperty Name="PolicyID" ColumnName="PolicyID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="MWTSModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleFlags" ColumnName="RoleFlags" />
+          <ScalarProperty Name="TaskMask" ColumnName="TaskMask" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RunningJobs">
+      <EntityTypeMapping TypeName="MWTSModel.RunningJobs">
+        <MappingFragment StoreEntitySet="RunningJobs">
+          <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+          <ScalarProperty Name="JobType" ColumnName="JobType" />
+          <ScalarProperty Name="JobAction" ColumnName="JobAction" />
+          <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RequestPath" ColumnName="RequestPath" />
+          <ScalarProperty Name="RequestName" ColumnName="RequestName" />
+          <ScalarProperty Name="ComputerName" ColumnName="ComputerName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="JobID" ColumnName="JobID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedule">
+      <EntityTypeMapping TypeName="MWTSModel.Schedule">
+        <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="ConsistancyCheck" ColumnName="ConsistancyCheck" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="EventData" ColumnName="EventData" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+          <ScalarProperty Name="ScheduledRunTimeout" ColumnName="ScheduledRunTimeout" />
+          <ScalarProperty Name="LastRunStatus" ColumnName="LastRunStatus" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="MonthlyWeek" ColumnName="MonthlyWeek" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="DaysOfMonth" ColumnName="DaysOfMonth" />
+          <ScalarProperty Name="DaysOfWeek" ColumnName="DaysOfWeek" />
+          <ScalarProperty Name="WeeksInterval" ColumnName="WeeksInterval" />
+          <ScalarProperty Name="DaysInterval" ColumnName="DaysInterval" />
+          <ScalarProperty Name="MinutesInterval" ColumnName="MinutesInterval" />
+          <ScalarProperty Name="RecurrenceType" ColumnName="RecurrenceType" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="LastRunTime" ColumnName="LastRunTime" />
+          <ScalarProperty Name="NextRunTime" ColumnName="NextRunTime" />
+          <ScalarProperty Name="Flags" ColumnName="Flags" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SecData">
+      <EntityTypeMapping TypeName="MWTSModel.SecData">
+        <MappingFragment StoreEntitySet="SecData">
+          <ScalarProperty Name="NtSecDescSecondary" ColumnName="NtSecDescSecondary" />
+          <ScalarProperty Name="NtSecDescPrimary" ColumnName="NtSecDescPrimary" />
+          <ScalarProperty Name="XmlDescription" ColumnName="XmlDescription" />
+          <ScalarProperty Name="AuthType" ColumnName="AuthType" />
+          <ScalarProperty Name="PolicyID" ColumnName="PolicyID" />
+          <ScalarProperty Name="SecDataID" ColumnName="SecDataID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Segment">
+      <EntityTypeMapping TypeName="MWTSModel.Segment">
+        <MappingFragment StoreEntitySet="Segment">
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SegmentedChunk">
+      <EntityTypeMapping TypeName="MWTSModel.SegmentedChunk">
+        <MappingFragment StoreEntitySet="SegmentedChunk">
+          <ScalarProperty Name="SegmentedChunkId" ColumnName="SegmentedChunkId" />
+          <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ChunkType" ColumnName="ChunkType" />
+          <ScalarProperty Name="ChunkName" ColumnName="ChunkName" />
+          <ScalarProperty Name="ChunkFlags" ColumnName="ChunkFlags" />
+          <ScalarProperty Name="SnapshotDataId" ColumnName="SnapshotDataId" />
+          <ScalarProperty Name="ChunkId" ColumnName="ChunkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServerParametersInstance">
+      <EntityTypeMapping TypeName="MWTSModel.ServerParametersInstance">
+        <MappingFragment StoreEntitySet="ServerParametersInstance">
+          <ScalarProperty Name="ParametersValues" ColumnName="ParametersValues" />
+          <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+          <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ServerParametersID" ColumnName="ServerParametersID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServerUpgradeHistory">
+      <EntityTypeMapping TypeName="MWTSModel.ServerUpgradeHistory">
+        <MappingFragment StoreEntitySet="ServerUpgradeHistory">
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="ServerVersion" ColumnName="ServerVersion" />
+          <ScalarProperty Name="UpgradeID" ColumnName="UpgradeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SnapshotData">
+      <EntityTypeMapping TypeName="MWTSModel.SnapshotData">
+        <MappingFragment StoreEntitySet="SnapshotData">
+          <ScalarProperty Name="ProcessingFlags" ColumnName="ProcessingFlags" />
+          <ScalarProperty Name="PaginationMode" ColumnName="PaginationMode" />
+          <ScalarProperty Name="HasDocMap" ColumnName="HasDocMap" />
+          <ScalarProperty Name="PageCount" ColumnName="PageCount" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="TransientRefcount" ColumnName="TransientRefcount" />
+          <ScalarProperty Name="PermanentRefcount" ColumnName="PermanentRefcount" />
+          <ScalarProperty Name="DependsOnUser" ColumnName="DependsOnUser" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EffectiveParams" ColumnName="EffectiveParams" />
+          <ScalarProperty Name="QueryParams" ColumnName="QueryParams" />
+          <ScalarProperty Name="ParamsHash" ColumnName="ParamsHash" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="SnapshotDataID" ColumnName="SnapshotDataID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subscriptions">
+      <EntityTypeMapping TypeName="MWTSModel.Subscriptions">
+        <MappingFragment StoreEntitySet="Subscriptions">
+          <ScalarProperty Name="ReportZone" ColumnName="ReportZone" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="DeliveryExtension" ColumnName="DeliveryExtension" />
+          <ScalarProperty Name="DataSettings" ColumnName="DataSettings" />
+          <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+          <ScalarProperty Name="LastRunTime" ColumnName="LastRunTime" />
+          <ScalarProperty Name="MatchData" ColumnName="MatchData" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="LastStatus" ColumnName="LastStatus" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+          <ScalarProperty Name="ExtensionSettings" ColumnName="ExtensionSettings" />
+          <ScalarProperty Name="InactiveFlags" ColumnName="InactiveFlags" />
+          <ScalarProperty Name="Locale" ColumnName="Locale" />
+          <ScalarProperty Name="Report_OID" ColumnName="Report_OID" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubscriptionsBeingDeleted">
+      <EntityTypeMapping TypeName="MWTSModel.SubscriptionsBeingDeleted">
+        <MappingFragment StoreEntitySet="SubscriptionsBeingDeleted">
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UpgradeInfo">
+      <EntityTypeMapping TypeName="MWTSModel.UpgradeInfo">
+        <MappingFragment StoreEntitySet="UpgradeInfo">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Item" ColumnName="Item" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MWTSModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AuthType" ColumnName="AuthType" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Sid" ColumnName="Sid" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Batch">
+      <EntityTypeMapping TypeName="MWTSModel.Batch">
+        <MappingFragment StoreEntitySet="Batch">
+          <ScalarProperty Name="Properties" ColumnName="Properties" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="BoolParam" ColumnName="BoolParam" />
+          <ScalarProperty Name="Param" ColumnName="Param" />
+          <ScalarProperty Name="Parent" ColumnName="Parent" />
+          <ScalarProperty Name="Item" ColumnName="Item" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModelPerspective">
+      <EntityTypeMapping TypeName="MWTSModel.ModelPerspective">
+        <MappingFragment StoreEntitySet="ModelPerspective">
+          <ScalarProperty Name="PerspectiveDescription" ColumnName="PerspectiveDescription" />
+          <ScalarProperty Name="PerspectiveName" ColumnName="PerspectiveName" />
+          <ScalarProperty Name="PerspectiveID" ColumnName="PerspectiveID" />
+          <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportSchedule">
+      <EntityTypeMapping TypeName="MWTSModel.ReportSchedule">
+        <MappingFragment StoreEntitySet="ReportSchedule">
+          <ScalarProperty Name="ReportAction" ColumnName="ReportAction" />
+          <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

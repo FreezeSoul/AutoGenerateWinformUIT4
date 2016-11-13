@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4374224F-3FEC-48BF-909D-8B249CAF4D36}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>T4Generator</RootNamespace>
+    <AssemblyName>T4Generator</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveSubscriptions_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActiveSubscriptions_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Batch_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Batch_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CachePolicy_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CachePolicy_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChunkData_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChunkData_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChunkSegmentMapping_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChunkSegmentMapping_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationInfo_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationInfo_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBUpgradeHistory_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBUpgradeHistory_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Event_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Event_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExecutionLogStorage_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExecutionLogStorage_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="History_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="History_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Keys_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Keys_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDrill_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDrill_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelItemPolicy_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelItemPolicy_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPerspective_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPerspective_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Policies_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Policies_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PolicyUserRole_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PolicyUserRole_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportSchedule_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportSchedule_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RunningJobs_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RunningJobs_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SecData_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SecData_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentedChunk_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentedChunk_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Segment_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Segment_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServerParametersInstance_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServerParametersInstance_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServerUpgradeHistory_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServerUpgradeHistory_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SnapshotData_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SnapshotData_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionsBeingDeleted_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionsBeingDeleted_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subscriptions_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subscriptions_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UpgradeInfo_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UpgradeInfo_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_List_XtraUserControl.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_List_XtraUserControl.Designer.cs">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XtraListGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AdoDALGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AdoDALGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="AdoBLLGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AdoBLLGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="AdoHelper.ttinclude" />
+    <None Include="EntityBLLGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityBLLGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="DevHelper.ttinclude" />
+    <None Include="Manager.ttinclude" />
+    <None Include="ModelGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="XmlMenuGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>XmlMenuGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="XtraEditGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>XtraEditGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="XtraListGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>XtraListGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="XtraReportGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>XtraReportGenerator.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\Microsoft.SqlServer.ConnectionInfo.dll" />
+    <Content Include="Lib\Microsoft.SqlServer.Management.Sdk.Sfc.dll" />
+    <Content Include="Lib\Microsoft.SqlServer.Smo.dll" />
+    <Content Include="Lib\System.XML.dll" />
+    <Content Include="MenuData.xml">
+      <DependentUpon>XmlMenuGenerator.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ActiveSubscriptions_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Batch_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CachePolicy_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalog_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChunkData_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChunkSegmentMapping_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationInfo_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataSets_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataSource_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBUpgradeHistory_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Event_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExecutionLogStorage_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Keys_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelDrill_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelItemPolicy_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelPerspective_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notifications_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Policies_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PolicyUserRole_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportSchedule_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Roles_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunningJobs_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schedule_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SecData_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SegmentedChunk_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Segment_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerParametersInstance_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerUpgradeHistory_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SnapshotData_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubscriptionsBeingDeleted_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Subscriptions_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpgradeInfo_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users_List_XtraUserControl.resx">
+      <DependentUpon>XtraListGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

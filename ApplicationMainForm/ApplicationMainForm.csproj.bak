@@ -1,0 +1,772 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC9C1428-489F-4644-A100-B6E784F3A51A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApplicationMainForm</RootNamespace>
+    <AssemblyName>ApplicationMainForm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v10.2.Linq, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Localization.v10.2, Version=10.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\DevExpress.Localization.v10.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main_RibbonForm.cs" />
+    <Compile Include="Main_RibbonForm.Designer.cs">
+      <DependentUpon>Main_RibbonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Common\Shell_XtraForm.cs" />
+    <Compile Include="UserControls\Common\Shell_XtraForm.Designer.cs">
+      <DependentUpon>Shell_XtraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Paging_XtraUserControl.cs" />
+    <Compile Include="UserControls\Common\Paging_XtraUserControl.Designer.cs">
+      <DependentUpon>Paging_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\BaseStationLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\BaseStationLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>BaseStationLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\BaseStationPathLine_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\BaseStationPathLine_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>BaseStationPathLine_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\BaseStation_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\BaseStation_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>BaseStation_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Cardtrack_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Cardtrack_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Cardtrack_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Card_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Card_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Card_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\CheckingInLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\CheckingInLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>CheckingInLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\DataPacket_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\DataPacket_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>DataPacket_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\DataRadioLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\DataRadioLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>DataRadioLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\DataRadio_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\DataRadio_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>DataRadio_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Department_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Department_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Department_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\EventRecord_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\EventRecord_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>EventRecord_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\JobShift_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\JobShift_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>JobShift_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\JobTitle_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\JobTitle_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>JobTitle_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Manager_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Manager_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Manager_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\OperatingLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\OperatingLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>OperatingLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\OperationInZoneLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\OperationInZoneLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>OperationInZoneLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\OperationLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\OperationLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>OperationLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\OverstaffDownHole_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\OverstaffDownHole_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>OverstaffDownHole_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\OverstaffInZone_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\OverstaffInZone_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>OverstaffInZone_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\PushButtonStateEvent_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\PushButtonStateEvent_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>PushButtonStateEvent_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\ReceivedFrame_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\ReceivedFrame_Edit_XtraUserControl.Designer.cs">
+      <DependentUpon>ReceivedFrame_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\SysConfig_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\SysConfig_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>SysConfig_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\SystemLog_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\SystemLog_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>SystemLog_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Team_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Team_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Team_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\TimeoutInZone_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\TimeoutInZone_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>TimeoutInZone_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\TimeoutWorkerDownHole_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\TimeoutWorkerDownHole_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>TimeoutWorkerDownHole_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\WorkAttendance_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\WorkAttendance_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>WorkAttendance_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Worker_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Worker_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Worker_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\WorkShiftType_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\WorkShiftType_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>WorkShiftType_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\WorkShift_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\WorkShift_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>WorkShift_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\ZoneAndBaseStationLink_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\ZoneAndBaseStationLink_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>ZoneAndBaseStationLink_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\ZoneType_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\ZoneType_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>ZoneType_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Edit\Zone_Edit_XtraUserControl.cs" />
+    <Compile Include="UserControls\Edit\Zone_Edit_XtraUserControl.designer.cs">
+      <DependentUpon>Zone_Edit_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\BaseStationLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\BaseStationLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>BaseStationLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\BaseStationPathLine_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\BaseStationPathLine_List_XtraUserControl.designer.cs">
+      <DependentUpon>BaseStationPathLine_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\BaseStation_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\BaseStation_List_XtraUserControl.designer.cs">
+      <DependentUpon>BaseStation_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Cardtrack_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Cardtrack_List_XtraUserControl.designer.cs">
+      <DependentUpon>Cardtrack_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Card_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Card_List_XtraUserControl.designer.cs">
+      <DependentUpon>Card_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\CheckingInLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\CheckingInLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>CheckingInLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\DataPacket_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\DataPacket_List_XtraUserControl.designer.cs">
+      <DependentUpon>DataPacket_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\DataRadioLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\DataRadioLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>DataRadioLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\DataRadio_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\DataRadio_List_XtraUserControl.designer.cs">
+      <DependentUpon>DataRadio_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Department_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Department_List_XtraUserControl.designer.cs">
+      <DependentUpon>Department_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\EventRecord_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\EventRecord_List_XtraUserControl.designer.cs">
+      <DependentUpon>EventRecord_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\JobShift_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\JobShift_List_XtraUserControl.designer.cs">
+      <DependentUpon>JobShift_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\JobTitle_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\JobTitle_List_XtraUserControl.designer.cs">
+      <DependentUpon>JobTitle_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Manager_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Manager_List_XtraUserControl.designer.cs">
+      <DependentUpon>Manager_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\OperatingLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\OperatingLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>OperatingLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\OperationInZoneLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\OperationInZoneLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>OperationInZoneLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\OperationLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\OperationLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>OperationLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\OverstaffDownHole_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\OverstaffDownHole_List_XtraUserControl.designer.cs">
+      <DependentUpon>OverstaffDownHole_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\OverstaffInZone_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\OverstaffInZone_List_XtraUserControl.designer.cs">
+      <DependentUpon>OverstaffInZone_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\PushButtonStateEvent_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\PushButtonStateEvent_List_XtraUserControl.designer.cs">
+      <DependentUpon>PushButtonStateEvent_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\ReceivedFrame_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\ReceivedFrame_List_XtraUserControl.designer.cs">
+      <DependentUpon>ReceivedFrame_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\SysConfig_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\SysConfig_List_XtraUserControl.designer.cs">
+      <DependentUpon>SysConfig_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\SystemLog_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\SystemLog_List_XtraUserControl.designer.cs">
+      <DependentUpon>SystemLog_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Team_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Team_List_XtraUserControl.designer.cs">
+      <DependentUpon>Team_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\TimeoutInZone_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\TimeoutInZone_List_XtraUserControl.designer.cs">
+      <DependentUpon>TimeoutInZone_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\TimeoutWorkerDownHole_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\TimeoutWorkerDownHole_List_XtraUserControl.designer.cs">
+      <DependentUpon>TimeoutWorkerDownHole_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\WorkAttendance_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\WorkAttendance_List_XtraUserControl.designer.cs">
+      <DependentUpon>WorkAttendance_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Worker_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Worker_List_XtraUserControl.designer.cs">
+      <DependentUpon>Worker_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\WorkShiftType_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\WorkShiftType_List_XtraUserControl.designer.cs">
+      <DependentUpon>WorkShiftType_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\WorkShift_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\WorkShift_List_XtraUserControl.designer.cs">
+      <DependentUpon>WorkShift_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\ZoneAndBaseStationLink_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\ZoneAndBaseStationLink_List_XtraUserControl.designer.cs">
+      <DependentUpon>ZoneAndBaseStationLink_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\ZoneType_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\ZoneType_List_XtraUserControl.designer.cs">
+      <DependentUpon>ZoneType_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\List\Zone_List_XtraUserControl.cs" />
+    <Compile Include="UserControls\List\Zone_List_XtraUserControl.designer.cs">
+      <DependentUpon>Zone_List_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Map\XtraUserControl1.cs" />
+    <Compile Include="UserControls\Map\XtraUserControl1.Designer.cs">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Other\XtraUserControl1.cs" />
+    <Compile Include="UserControls\Other\XtraUserControl1.Designer.cs">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\MyWorker_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\MyWorker_Report_XtraUserControl.designer.cs">
+      <DependentUpon>MyWorker_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\OperatingLog_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\OperatingLog_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>OperatingLog_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\OperationInZoneLog_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\OperationInZoneLog_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>OperationInZoneLog_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\OverstaffDownHole_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\OverstaffDownHole_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>OverstaffDownHole_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\OverstaffInZone_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\OverstaffInZone_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>OverstaffInZone_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\PushButtonStateEvent_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\PushButtonStateEvent_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>PushButtonStateEvent_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\RestCard_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\RestCard_Report_XtraUserControl.designer.cs">
+      <DependentUpon>RestCard_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\TeamView_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\TeamView_Report_XtraUserControl.designer.cs">
+      <DependentUpon>TeamView_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\TimeoutInZone_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\TimeoutInZone_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>TimeoutInZone_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\TimeoutWorkerDownHole_View_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\TimeoutWorkerDownHole_View_Report_XtraUserControl.designer.cs">
+      <DependentUpon>TimeoutWorkerDownHole_View_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\View_1_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\View_1_Report_XtraUserControl.designer.cs">
+      <DependentUpon>View_1_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\View_DepartMentID_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\View_DepartMentID_Report_XtraUserControl.designer.cs">
+      <DependentUpon>View_DepartMentID_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\View_JobtitleId_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\View_JobtitleId_Report_XtraUserControl.designer.cs">
+      <DependentUpon>View_JobtitleId_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\View_UpdateWorkerType_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\View_UpdateWorkerType_Report_XtraUserControl.designer.cs">
+      <DependentUpon>View_UpdateWorkerType_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\Worker_team_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\Worker_team_Report_XtraUserControl.designer.cs">
+      <DependentUpon>Worker_team_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\Worker_Transfer_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\Worker_Transfer_Report_XtraUserControl.designer.cs">
+      <DependentUpon>Worker_Transfer_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\x_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\x_Report_XtraUserControl.designer.cs">
+      <DependentUpon>x_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Report\y_Report_XtraUserControl.cs" />
+    <Compile Include="UserControls\Report\y_Report_XtraUserControl.designer.cs">
+      <DependentUpon>y_Report_XtraUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraForm1.cs" />
+    <Compile Include="XtraForm1.Designer.cs">
+      <DependentUpon>XtraForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraUserControl1.cs" />
+    <Compile Include="XtraUserControl1.Designer.cs">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XtraUserControl2.cs" />
+    <Compile Include="XtraUserControl2.Designer.cs">
+      <DependentUpon>XtraUserControl2.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main_RibbonForm.resx">
+      <DependentUpon>Main_RibbonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UserControls\Common\Shell_XtraForm.resx">
+      <DependentUpon>Shell_XtraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Common\Paging_XtraUserControl.resx">
+      <DependentUpon>Paging_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\BaseStationLog_Edit_XtraUserControl.resx">
+      <DependentUpon>BaseStationLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\BaseStationPathLine_Edit_XtraUserControl.resx">
+      <DependentUpon>BaseStationPathLine_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\BaseStation_Edit_XtraUserControl.resx">
+      <DependentUpon>BaseStation_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Cardtrack_Edit_XtraUserControl.resx">
+      <DependentUpon>Cardtrack_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Card_Edit_XtraUserControl.resx">
+      <DependentUpon>Card_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\CheckingInLog_Edit_XtraUserControl.resx">
+      <DependentUpon>CheckingInLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\DataPacket_Edit_XtraUserControl.resx">
+      <DependentUpon>DataPacket_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\DataRadioLog_Edit_XtraUserControl.resx">
+      <DependentUpon>DataRadioLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\DataRadio_Edit_XtraUserControl.resx">
+      <DependentUpon>DataRadio_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Department_Edit_XtraUserControl.resx">
+      <DependentUpon>Department_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\EventRecord_Edit_XtraUserControl.resx">
+      <DependentUpon>EventRecord_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\JobShift_Edit_XtraUserControl.resx">
+      <DependentUpon>JobShift_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\JobTitle_Edit_XtraUserControl.resx">
+      <DependentUpon>JobTitle_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Manager_Edit_XtraUserControl.resx">
+      <DependentUpon>Manager_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\OperatingLog_Edit_XtraUserControl.resx">
+      <DependentUpon>OperatingLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\OperationInZoneLog_Edit_XtraUserControl.resx">
+      <DependentUpon>OperationInZoneLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\OperationLog_Edit_XtraUserControl.resx">
+      <DependentUpon>OperationLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\OverstaffDownHole_Edit_XtraUserControl.resx">
+      <DependentUpon>OverstaffDownHole_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\OverstaffInZone_Edit_XtraUserControl.resx">
+      <DependentUpon>OverstaffInZone_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\PushButtonStateEvent_Edit_XtraUserControl.resx">
+      <DependentUpon>PushButtonStateEvent_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\ReceivedFrame_Edit_XtraUserControl.resx">
+      <DependentUpon>ReceivedFrame_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\SysConfig_Edit_XtraUserControl.resx">
+      <DependentUpon>SysConfig_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\SystemLog_Edit_XtraUserControl.resx">
+      <DependentUpon>SystemLog_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Team_Edit_XtraUserControl.resx">
+      <DependentUpon>Team_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\TimeoutInZone_Edit_XtraUserControl.resx">
+      <DependentUpon>TimeoutInZone_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\TimeoutWorkerDownHole_Edit_XtraUserControl.resx">
+      <DependentUpon>TimeoutWorkerDownHole_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\WorkAttendance_Edit_XtraUserControl.resx">
+      <DependentUpon>WorkAttendance_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Worker_Edit_XtraUserControl.resx">
+      <DependentUpon>Worker_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\WorkShiftType_Edit_XtraUserControl.resx">
+      <DependentUpon>WorkShiftType_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\WorkShift_Edit_XtraUserControl.resx">
+      <DependentUpon>WorkShift_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\ZoneAndBaseStationLink_Edit_XtraUserControl.resx">
+      <DependentUpon>ZoneAndBaseStationLink_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\ZoneType_Edit_XtraUserControl.resx">
+      <DependentUpon>ZoneType_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Edit\Zone_Edit_XtraUserControl.resx">
+      <DependentUpon>Zone_Edit_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\BaseStationLog_List_XtraUserControl.resx">
+      <DependentUpon>BaseStationLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\BaseStationPathLine_List_XtraUserControl.resx">
+      <DependentUpon>BaseStationPathLine_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\BaseStation_List_XtraUserControl.resx">
+      <DependentUpon>BaseStation_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Cardtrack_List_XtraUserControl.resx">
+      <DependentUpon>Cardtrack_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Card_List_XtraUserControl.resx">
+      <DependentUpon>Card_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\CheckingInLog_List_XtraUserControl.resx">
+      <DependentUpon>CheckingInLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\DataPacket_List_XtraUserControl.resx">
+      <DependentUpon>DataPacket_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\DataRadioLog_List_XtraUserControl.resx">
+      <DependentUpon>DataRadioLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\DataRadio_List_XtraUserControl.resx">
+      <DependentUpon>DataRadio_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Department_List_XtraUserControl.resx">
+      <DependentUpon>Department_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\EventRecord_List_XtraUserControl.resx">
+      <DependentUpon>EventRecord_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\JobShift_List_XtraUserControl.resx">
+      <DependentUpon>JobShift_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\JobTitle_List_XtraUserControl.resx">
+      <DependentUpon>JobTitle_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Manager_List_XtraUserControl.resx">
+      <DependentUpon>Manager_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\OperatingLog_List_XtraUserControl.resx">
+      <DependentUpon>OperatingLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\OperationInZoneLog_List_XtraUserControl.resx">
+      <DependentUpon>OperationInZoneLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\OperationLog_List_XtraUserControl.resx">
+      <DependentUpon>OperationLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\OverstaffDownHole_List_XtraUserControl.resx">
+      <DependentUpon>OverstaffDownHole_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\OverstaffInZone_List_XtraUserControl.resx">
+      <DependentUpon>OverstaffInZone_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\PushButtonStateEvent_List_XtraUserControl.resx">
+      <DependentUpon>PushButtonStateEvent_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\ReceivedFrame_List_XtraUserControl.resx">
+      <DependentUpon>ReceivedFrame_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\SysConfig_List_XtraUserControl.resx">
+      <DependentUpon>SysConfig_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\SystemLog_List_XtraUserControl.resx">
+      <DependentUpon>SystemLog_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Team_List_XtraUserControl.resx">
+      <DependentUpon>Team_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\TimeoutInZone_List_XtraUserControl.resx">
+      <DependentUpon>TimeoutInZone_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\TimeoutWorkerDownHole_List_XtraUserControl.resx">
+      <DependentUpon>TimeoutWorkerDownHole_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\WorkAttendance_List_XtraUserControl.resx">
+      <DependentUpon>WorkAttendance_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Worker_List_XtraUserControl.resx">
+      <DependentUpon>Worker_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\WorkShiftType_List_XtraUserControl.resx">
+      <DependentUpon>WorkShiftType_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\WorkShift_List_XtraUserControl.resx">
+      <DependentUpon>WorkShift_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\ZoneAndBaseStationLink_List_XtraUserControl.resx">
+      <DependentUpon>ZoneAndBaseStationLink_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\ZoneType_List_XtraUserControl.resx">
+      <DependentUpon>ZoneType_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\List\Zone_List_XtraUserControl.resx">
+      <DependentUpon>Zone_List_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Map\XtraUserControl1.resx">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Other\XtraUserControl1.resx">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\MyWorker_Report_XtraUserControl.resx">
+      <DependentUpon>MyWorker_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\OperatingLog_View_Report_XtraUserControl.resx">
+      <DependentUpon>OperatingLog_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\OperationInZoneLog_View_Report_XtraUserControl.resx">
+      <DependentUpon>OperationInZoneLog_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\OverstaffDownHole_View_Report_XtraUserControl.resx">
+      <DependentUpon>OverstaffDownHole_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\OverstaffInZone_View_Report_XtraUserControl.resx">
+      <DependentUpon>OverstaffInZone_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\PushButtonStateEvent_View_Report_XtraUserControl.resx">
+      <DependentUpon>PushButtonStateEvent_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\RestCard_Report_XtraUserControl.resx">
+      <DependentUpon>RestCard_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\TeamView_Report_XtraUserControl.resx">
+      <DependentUpon>TeamView_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\TimeoutInZone_View_Report_XtraUserControl.resx">
+      <DependentUpon>TimeoutInZone_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\TimeoutWorkerDownHole_View_Report_XtraUserControl.resx">
+      <DependentUpon>TimeoutWorkerDownHole_View_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\View_1_Report_XtraUserControl.resx">
+      <DependentUpon>View_1_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\View_DepartMentID_Report_XtraUserControl.resx">
+      <DependentUpon>View_DepartMentID_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\View_JobtitleId_Report_XtraUserControl.resx">
+      <DependentUpon>View_JobtitleId_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\View_UpdateWorkerType_Report_XtraUserControl.resx">
+      <DependentUpon>View_UpdateWorkerType_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\Worker_team_Report_XtraUserControl.resx">
+      <DependentUpon>Worker_team_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\Worker_Transfer_Report_XtraUserControl.resx">
+      <DependentUpon>Worker_Transfer_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\x_Report_XtraUserControl.resx">
+      <DependentUpon>x_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\y_Report_XtraUserControl.resx">
+      <DependentUpon>y_Report_XtraUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraForm1.resx">
+      <DependentUpon>XtraForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraUserControl1.resx">
+      <DependentUpon>XtraUserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraUserControl2.resx">
+      <DependentUpon>XtraUserControl2.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MenuData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Resources\QQ截图未命名.png" />
+    <None Include="Resources\Image1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainModelLayer\DomainModelLayer.csproj">
+      <Project>{F524E4D5-41F3-4CF6-97D2-D63A512520C8}</Project>
+      <Name>DomainModelLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{8E57B611-6133-49B2-BB0B-62C6F27F779F}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogicLayer\BusinessLogicLayer.csproj">
+      <Project>{ADD83146-4822-4665-9531-0E44BFB63380}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UILogic\UILogic.csproj">
+      <Project>{047146BE-9884-4CAF-A650-25EC7977965D}</Project>
+      <Name>UILogic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

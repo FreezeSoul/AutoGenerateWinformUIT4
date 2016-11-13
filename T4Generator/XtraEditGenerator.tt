@@ -1,0 +1,752 @@
+﻿<#@ template language="C#" hostspecific="True"#>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.ConnectionInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Management.Sdk.Sfc.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Smo.dll" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@include file="Manager.ttinclude"#>
+<#@include file="DevHelper.ttinclude"#>
+<#@include file="AdoHelper.ttinclude"#>
+<#
+var manager = Manager.Create(Host, GenerationEnvironment);
+var devHelper = new DevHelper();
+var adoHelper = new AdoHelper();
+#>
+
+
+<# manager.StartHeader(); #>
+<# manager.EndBlock(); #>
+    
+<# manager.StartFooter(); #>
+<# manager.EndBlock(); #>
+
+<#
+    Server server = new Server();
+    Database database = new Database(server, "ReportServer");
+	database.Refresh();
+#>
+
+<# 
+foreach(Table table in database.Tables)
+{
+//	if(table.Name != "Card")
+//		continue;
+	table.Refresh();
+	table.Columns.Refresh();
+	table.ExtendedProperties.Refresh();
+	string tabledescribe = table.ExtendedProperties.Count==0?table.Name: table.ExtendedProperties[0].Value.ToString();
+#>
+<# 
+	string primaryKeyType = string.Empty;
+	string primaryKeyName = string.Empty;
+	List<Column> pKeyColumns = adoHelper.GetPrimaryKeys(table);
+	primaryKeyType = pKeyColumns.Count>0?adoHelper.ChangeToCSharpType(pKeyColumns[0].DataType.ToString()):"String";
+	primaryKeyName = pKeyColumns.Count>0?pKeyColumns[0].Name:table.Columns[0].Name;
+#>
+
+#region 数据维护编辑用户控件生成逻辑
+
+	#region 后台代码
+	<# manager.StartNewFile(table.Name + "_Edit_XtraUserControl.cs"); #>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Text;
+using System.Windows.Forms;
+using BusinessLogicLayer;
+using BusinessLogicLayer.Entity;
+using DevExpress.XtraEditors;
+using DevExpress.XtraLayout.Utils;
+using DomainModelLayer;
+using Infrastructure;
+using UILogic;
+
+namespace ApplicationMainForm.UserControls.Edit
+{
+    public partial class <#=table.Name + "_Edit_XtraUserControl"  #> : DevExpress.XtraEditors.XtraUserControl
+    {
+		
+        public <#=table.Name + "_Edit_XtraUserControl"  #>()
+        {
+            InitializeComponent();
+        }
+		
+		#region Property
+
+        public <#= primaryKeyType #> <#=primaryKeyName  #> { set; get; }
+
+        public FormState State { set; get; }
+
+        public XtraForm FormContainer { set; get; }
+
+        private <#=table.Name  #> _<#=table.Name.ToLower()  #>;
+
+        private readonly <#=table.Name  #>EntityBLL _<#=table.Name.ToLower()  #>EntityBll = new <#=table.Name  #>EntityBLL();
+        
+        #endregion 
+
+        #region Method
+		
+  		private void SetTitle()
+        {
+            switch (State)
+            {
+                case FormState.View:
+                    this.groupControl1.Text = "<#=tabledescribe  #>信息查看";
+					this.FormContainer.Text = "<#=tabledescribe  #>";
+                    break;
+                case FormState.Add:
+                    this.groupControl1.Text = "<#=tabledescribe  #>信息增加";
+					this.FormContainer.Text = "<#=tabledescribe  #>";
+                    break;
+                case FormState.Edit:
+                    this.groupControl1.Text = "<#=tabledescribe  #>信息修改";
+					this.FormContainer.Text = "<#=tabledescribe  #>";
+                    break;
+            }
+        }
+		
+   		private bool ValidateData(List<string> mappedList, ref List<string> errorInfo)
+        {
+            var flag = true;
+			<# 
+			foreach(Column column in table.Columns)
+			{
+				if(column.Nullable)
+					continue;
+				if(column.InPrimaryKey)
+					continue;
+				column.ExtendedProperties.Refresh();
+				string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+			#>
+			 if (!mappedList.Contains("<#= column.Name #>"))
+            {
+                errorInfo.Add(string.Format("{0}不得为空！","<#=describe #>"));
+                flag = false;
+            }
+			<# 
+			}
+			#>
+            return flag;
+        }
+		
+        private void CheckRole()
+        {
+
+        }
+		
+        private void BindData()
+        {
+			#region 控件赋值
+            _<#=table.Name.ToLower()  #> = _<#=table.Name.ToLower()  #>EntityBll.GetByKey(this.<#=primaryKeyName  #>);
+            if (_<#=table.Name.ToLower()  #> != null)
+            {
+            	<# 
+				foreach(Column column in table.Columns)
+				{
+				#>
+					<#=devHelper.SetControlValueStr(devHelper.GetControlTypeByColumnType(column.DataType.Name,false),column.Name,column.DataType.Name,adoHelper.ChangeToCSharpType(column.DataType.Name),"_"+table.Name.ToLower(),column.Nullable)  #>
+				<# 
+				}
+				#>
+            }
+			#endregion
+        }
+
+        private void MapData(ref List<string> mappedList)
+        {
+			#region 控件取值
+            if (_<#=table.Name.ToLower()  #> != null)
+            {
+				<# 
+					foreach(Column column in table.Columns)
+					{
+					if(column.InPrimaryKey)
+						continue;
+					#>
+						<#=devHelper.MapModelValueStr(devHelper.GetControlTypeByColumnType(column.DataType.Name,false),column.Name,column.DataType.Name,adoHelper.ChangeToCSharpType(column.DataType.Name),"_"+table.Name.ToLower(),"mappedList")  #>
+					<# 
+					}
+				#>
+            }
+			#endregion
+        }
+
+        #endregion
+
+        #region Event
+
+        private void  <#=table.Name  #>_Edit_XtraUserControl_Load(object sender, EventArgs e)
+        {
+            if (State == FormState.Edit || State == FormState.View)
+            {
+				 this.Save_Action_SimpleButton.Enabled = State == FormState.Edit;
+                BindData();
+            }
+			SetTitle();
+            CheckRole();
+			new  UILogic.EventInject.ButtonEventService().InitEvent(this.FormContainer);
+        }
+
+        private void Save_Action_SimpleButton_Click(object sender, EventArgs e)
+        {
+            if (XtraExtension.Confirm(@"确认是否保存数据!") == DialogResult.OK)
+            {
+			    var msgErrors = new List<string>();
+				var mappedList = new List<string>();
+                if (State == FormState.Add)
+                {
+                    _<#=table.Name.ToLower()  #> = new <#=table.Name #>();
+                    MapData(ref mappedList);
+					 if (ValidateData(mappedList,ref msgErrors))
+                    {
+	                    _<#=table.Name.ToLower()  #>EntityBll.Add(_<#=table.Name.ToLower()  #>);
+	                    _<#=table.Name.ToLower()  #>EntityBll.Save();
+					}
+					else
+                    {
+                        XtraExtension.ShowAlarm(msgErrors.GetJoinListStr("\r\n"));
+                    }
+                }
+                if (State == FormState.Edit)
+                {
+                    MapData(ref mappedList);
+					 if (ValidateData(mappedList,ref msgErrors))
+                    {
+                    	_<#=table.Name.ToLower()  #>EntityBll.Save();
+					}
+					else
+                    {
+                        XtraExtension.ShowAlarm(msgErrors.GetJoinListStr("\r\n"));
+                    }
+                }
+            }
+        }
+
+        private void Cancel_Action_SimpleButton_Click(object sender, EventArgs e)
+        {
+            if (FormContainer != null)
+                FormContainer.Close();
+        }
+
+        #endregion
+    }
+}
+	<# manager.EndBlock(); #>
+	#endregion
+	
+	#region 设计代码
+	<# manager.StartNewFile(table.Name + "_Edit_XtraUserControl.Designer.cs"); #>
+namespace ApplicationMainForm.UserControls.Edit
+{
+    partial class <#=table.Name + "_Edit_XtraUserControl"  #>
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+			<# //输入布局列数设置
+				var columnNum = 2;
+				var n = table.Columns.Count/columnNum+ (table.Columns.Count%columnNum>0?1:0);
+			#>
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.Save_Action_SimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.Add_Action_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.Cancel_Action_SimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.Cancel_Action_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#
+				foreach(Column column in table.Columns)
+				{
+			#>
+            this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #> = new DevExpress.XtraEditors.<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>();
+            <# 
+				}
+			#>
+			
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= table.Columns.Count)
+					{
+			#>
+				this.<#=table.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#
+					}
+					if((i*columnNum+2)<= table.Columns.Count)
+					{
+			#>
+				this.<#=table.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#			
+					}
+					else
+					{
+			#>
+				this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem = new DevExpress.XtraLayout.EmptySpaceItem();
+			<#	
+					}
+				}
+			#>
+
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Add_Action_LayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Cancel_Action_LayoutControlItem)).BeginInit();
+
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= table.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=table.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem)).BeginInit();
+			<#
+					}
+					if((i*columnNum+2)<= table.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=table.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem)).BeginInit();
+			<#			
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem)).BeginInit();
+			<#	
+					}
+				}
+			#>
+			
+			<#
+				foreach(Column column in table.Columns)
+				{
+			#>
+			((System.ComponentModel.ISupportInitialize)( this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>.Properties)).BeginInit();
+            <# 
+				}
+			#>
+            this.SuspendLayout();
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.Controls.Add(this.layoutControl1);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl1.Location = new System.Drawing.Point(0, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(524, 147);
+            this.groupControl1.TabIndex = 0;
+            this.groupControl1.Text = "groupControl1";
+            // 
+            // layoutControl1
+            // 
+            this.layoutControl1.Controls.Add(this.Cancel_Action_SimpleButton);
+            this.layoutControl1.Controls.Add(this.Save_Action_SimpleButton);
+			<#
+				foreach(Column column in table.Columns)
+				{
+			#>
+           this.layoutControl1.Controls.Add(this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>);
+            <# 
+				}
+			#>
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(2, 23);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.Root = this.layoutControlGroup1;
+            this.layoutControl1.Size = new System.Drawing.Size(520, 122);
+            this.layoutControl1.TabIndex = 0;
+            this.layoutControl1.Text = "layoutControl1";
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.CustomizationFormText = "layoutControlGroup1";
+            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup1.GroupBordersVisible = false;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.Add_Action_LayoutControlItem,
+            this.Cancel_Action_LayoutControlItem});
+			
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= table.Columns.Count)
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.<#=table.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem});
+			<#
+					}
+					if((i*columnNum+2)<= table.Columns.Count)
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.<#=table.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem});
+			<#			
+					}
+					else
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem});
+			<#	
+					}
+				}
+			#>
+			
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup1.Name = "layoutControlGroup1";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(520, 122);
+            this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.layoutControlGroup1.Text = "layoutControlGroup1";
+            this.layoutControlGroup1.TextVisible = false;
+			
+			<# 
+				var columnTemp = new List<Column>();
+				for(int i=1;i< table.Columns.Count;i++)
+				{
+					columnTemp.Add(table.Columns[i]);
+				}
+				columnTemp.Add(table.Columns[0]);
+				
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= table.Columns.Count)
+					{
+						Column column =columnTemp[(i*columnNum+1)-1];
+						column.ExtendedProperties.Refresh();
+						string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+						int x = 0;
+						int y = i * 25;
+						int width = 250;
+						int height = 25;
+						int index = i*columnNum+1;
+						#><#=devHelper.
+InitControlStr(devHelper.GetControlTypeByColumnType(column.DataType.Name),column.Name,describe,x,y,width,height,index)
+						#><#
+					}
+					if((i*columnNum+2)<= table.Columns.Count)
+					{
+						Column column =columnTemp[(i*columnNum+2)-1];
+						column.ExtendedProperties.Refresh();
+						string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+						int x = 250;
+						int y = i * 25;
+						int width = 250;
+						int height = 25;
+						int index = i*columnNum+2;
+						#><#=devHelper.
+InitControlStr(devHelper.GetControlTypeByColumnType(column.DataType.Name),column.Name,describe,x,y,width,height,index)
+						#><#
+					}
+					else
+					{
+						int x = 250;
+						int y = i * 25;
+						int width = 250;
+						int height = 25;
+						int index = i*columnNum+2;
+						#><#=devHelper.
+InitControlStr(string.Empty,string.Empty,string.Empty,x,y,width,height,index)
+					#><#}
+				}
+			#>
+            // 
+            // Save_Action_SimpleButton
+            // 
+            this.Save_Action_SimpleButton.Name = "Save_Action_SimpleButton";
+            this.Save_Action_SimpleButton.StyleController = this.layoutControl1;
+            this.Save_Action_SimpleButton.TabIndex = 6;
+            this.Save_Action_SimpleButton.Text = "保存";
+			this.Save_Action_SimpleButton.Click += new System.EventHandler(this.Save_Action_SimpleButton_Click);
+            // 
+            // Add_Action_LayoutControlItem
+            // 
+            this.Add_Action_LayoutControlItem.Control = this.Save_Action_SimpleButton;
+            this.Add_Action_LayoutControlItem.CustomizationFormText = "layoutControlItem3";
+            this.Add_Action_LayoutControlItem.Location = new System.Drawing.Point(0, <#= n*25 #>);
+            this.Add_Action_LayoutControlItem.Name = "Add_Action_LayoutControlItem";
+            this.Add_Action_LayoutControlItem.Size = new System.Drawing.Size(250, 27);
+            this.Add_Action_LayoutControlItem.Text = "Add_Action_LayoutControlItem";
+            this.Add_Action_LayoutControlItem.TextSize = new System.Drawing.Size(0, 0);
+            this.Add_Action_LayoutControlItem.TextToControlDistance = 0;
+            this.Add_Action_LayoutControlItem.TextVisible = false;
+            // 
+            // Cancel_Action_SimpleButton
+            // 
+            this.Cancel_Action_SimpleButton.Name = "Cancel_Action_SimpleButton";
+            this.Cancel_Action_SimpleButton.StyleController = this.layoutControl1;
+            this.Cancel_Action_SimpleButton.TabIndex = 7;
+            this.Cancel_Action_SimpleButton.Text = "取消";
+			this.Cancel_Action_SimpleButton.Click += new System.EventHandler(this.Cancel_Action_SimpleButton_Click);
+            // 
+            // Cancel_Action_LayoutControlItem
+            // 
+            this.Cancel_Action_LayoutControlItem.Control = this.Cancel_Action_SimpleButton;
+            this.Cancel_Action_LayoutControlItem.CustomizationFormText = "layoutControlItem4";
+            this.Cancel_Action_LayoutControlItem.Location = new System.Drawing.Point(250, <#= n*25 #>);
+            this.Cancel_Action_LayoutControlItem.Name = "Cancel_Action_LayoutControlItem";
+            this.Cancel_Action_LayoutControlItem.Size = new System.Drawing.Size(250, 27);
+            this.Cancel_Action_LayoutControlItem.Text = "Cancel_Action_LayoutControlItem";
+            this.Cancel_Action_LayoutControlItem.TextSize = new System.Drawing.Size(0, 0);
+            this.Cancel_Action_LayoutControlItem.TextToControlDistance = 0;
+            this.Cancel_Action_LayoutControlItem.TextVisible = false;
+            // 
+            // <#=table.Name + "_Edit_XtraUserControl"  #>
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupControl1);
+            this.Name = "<#=table.Name + "_Edit_XtraUserControl"  #>";
+			//25+25+27+20+25
+			//97
+			//122
+            this.Size = new System.Drawing.Size(524, <#= n*25+27+20+25 #>);
+			this.Load += new System.EventHandler(this.<#=table.Name#>_Edit_XtraUserControl_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Add_Action_LayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Cancel_Action_LayoutControlItem)).EndInit();
+
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= table.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=table.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem)).EndInit();
+			<#
+					}
+					if((i*columnNum+2)<= table.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=table.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem)).EndInit();
+			<#			
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem)).EndInit();
+			<#	
+					}
+				}
+			#>
+
+            <#
+				foreach(Column column in table.Columns)
+				{
+			#>
+			((System.ComponentModel.ISupportInitialize)( this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>.Properties)).EndInit();
+            <# 
+				}
+			#>
+			
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraEditors.SimpleButton Cancel_Action_SimpleButton;
+        private DevExpress.XtraEditors.SimpleButton Save_Action_SimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem Add_Action_LayoutControlItem;
+        private DevExpress.XtraLayout.LayoutControlItem Cancel_Action_LayoutControlItem;
+
+		<# 
+			for(int i=0;i<n;i++)
+			{
+				if((i*columnNum+1)<= table.Columns.Count)
+				{
+		#>
+	private DevExpress.XtraLayout.LayoutControlItem <#=table.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem;
+		<#
+				}
+				if((i*columnNum+2)<= table.Columns.Count)
+				{
+		#>
+	private DevExpress.XtraLayout.LayoutControlItem <#=table.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem;
+		<#			
+				}
+				else
+				{
+		#>
+	private DevExpress.XtraLayout.EmptySpaceItem NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem;
+		<#	
+				}
+			}
+		#>
+
+		<#
+			foreach(Column column in table.Columns)
+			{
+		#>
+		private DevExpress.XtraEditors.<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #> <#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>;
+        <# 
+			}
+		#>
+
+    }
+}
+	<# manager.EndBlock(); #>
+	#endregion
+	
+	#region 资源文件
+	<# manager.StartNewFile(table.Name +"_Edit_XtraUserControl.resx"); #>
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>
+	<# manager.EndBlock(); #>
+	#endregion
+
+#endregion
+
+<# 
+}
+#>
+
+<# manager.Process(true); #>

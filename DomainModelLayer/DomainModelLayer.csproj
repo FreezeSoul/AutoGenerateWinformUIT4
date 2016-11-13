@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F524E4D5-41F3-4CF6-97D2-D63A512520C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DomainModelLayer</RootNamespace>
+    <AssemblyName>DomainModelLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveSubscriptions.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Batch.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CachePolicy.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChunkData.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChunkSegmentMapping.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationInfo.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBUpgradeHistory.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExecutionLogStorage.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="History.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Keys.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDrill.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelItemPolicy.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelPerspective.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Policies.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PolicyUserRole.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportSchedule.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RunningJobs.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SecData.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Segment.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentedChunk.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServerParametersInstance.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServerUpgradeHistory.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SnapshotData.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subscriptions.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionsBeingDeleted.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UpgradeInfo.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>DomainModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="DomainModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DomainModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="DomainModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DomainModel.Context.cs</LastGenOutput>
+      <DependentUpon>DomainModel.edmx</DependentUpon>
+    </None>
+    <None Include="DomainModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DomainModel.cs</LastGenOutput>
+      <DependentUpon>DomainModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

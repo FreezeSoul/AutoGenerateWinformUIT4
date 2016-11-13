@@ -1,0 +1,164 @@
+﻿<#@ template language="C#" hostspecific="True"#>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.ConnectionInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Management.Sdk.Sfc.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Smo.dll" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@include file="Manager.ttinclude"#>
+<#@include file="AdoHelper.ttinclude"#>
+<#
+var manager = Manager.Create(Host, GenerationEnvironment);
+var adoHelper = new AdoHelper();
+#>
+<# manager.StartHeader(); #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using DataAccessLayer.Ado;
+
+namespace BusinessLogicLayer.Ado
+{
+<# manager.EndBlock(); #>
+    
+<# manager.StartFooter(); #>
+}
+<# manager.EndBlock(); #>
+
+<#
+    Server server = new Server();
+    Database database = new Database(server, "ReportServer");
+	database.Refresh();
+#>
+
+<# 
+foreach(View view in database.Views)
+{
+//	if(view.Name != "BaseStation")
+//		continue;
+	if(view.IsSystemObject)
+		continue;
+	view.Refresh();
+	view.Columns.Refresh();
+#>
+<# manager.StartNewFile(view.Name + "AdoBLL.cs"); #>
+
+	public class <#=view.Name #>AdoBLL
+    {
+        
+		private <#=view.Name #>AdoDAL _<#=view.Name.ToLower() #>AdoDAL = new <#=view.Name #>AdoDAL();
+        public <#=view.Name #>AdoBLL()
+        {
+        }
+
+        public DataTable GetDataTable()
+        {
+			return GetDataTable(null, null, null, null);
+        }
+
+        public DataTable GetDataTable(Dictionary<string,object> defaultParams, Dictionary<string, object> searchParams)
+        {
+			return GetDataTable(defaultParams,searchParams,null,null);
+        }
+
+        public DataTable GetDataTable(Dictionary<string,object> defaultParams, Dictionary<string, object> searchParams, int? rowStart, int? rowEnd)
+        {
+			var whereStr = new StringBuilder();
+			whereStr.Append(@" Where 1=1 ");
+			var paramsTemp = new Dictionary<string,object>();
+			#region 默认查询条件
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+					if(defaultParams.ContainsKey("<#=column.Name #>"))
+					{
+            		<#
+					if(new string[]{"datetime","datetime2"}.ToList().Contains(column.DataType.Name.ToLower()))
+					{
+					#>
+						var startTime = DateTime.Parse(((DateTime)defaultParams["<#=column.Name #>"]).ToString("yyyy-MM-dd"));
+						var endTime = DateTime.Parse(((DateTime)defaultParams["<#=column.Name #>"]).AddDays(1).ToString("yyyy-MM-dd"));
+						whereStr.Append(@" and <#=column.Name #>>=@<#=column.Name #>_Start and <#=column.Name #><@<#=column.Name #>_End ");
+						paramsTemp.Add("@<#=column.Name #>_Start",startTime);
+						paramsTemp.Add("@<#=column.Name #>_End",endTime);
+					<# 
+					}
+					else
+					{
+					#>
+						whereStr.Append(@" and <#=column.Name #>=@<#=column.Name #> ");
+						paramsTemp.Add("@<#=column.Name #>",defaultParams["<#=column.Name #>"]);
+					<# 
+					}
+					#>
+					}
+            <# 
+				}
+			#>
+			#endregion
+			#region 自定义查询
+				//whereStr.Append(@"columnName=@columnName");
+				//paramsTemp.Add("columnName",searchParams["columnName"]);
+			#endregion
+			if(rowStart == null || rowEnd == null)
+			{
+            	return _<#=view.Name.ToLower() #>AdoDAL.GetPageDataTable(whereStr.ToString(),"<#= view.Columns[0].Name #>",paramsTemp);
+			}
+			else
+			{
+				return _<#=view.Name.ToLower() #>AdoDAL.GetPageDataTable(whereStr.ToString(),"<#= view.Columns[0].Name #>",paramsTemp,(int)rowStart,(int)rowEnd);
+			}
+        }
+		
+		public int GetDataTableCount(Dictionary<string,object> defaultParams, Dictionary<string, object> searchParams)
+		{
+			var whereStr = new StringBuilder();
+			whereStr.Append(@" Where 1=1 ");
+			var paramsTemp = new Dictionary<string,object>();
+			#region 默认查询条件
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+					if(defaultParams.ContainsKey("<#=column.Name #>"))
+					{
+            		<#
+					if(new string[]{"datetime","datetime2"}.ToList().Contains(column.DataType.Name.ToLower()))
+					{
+					#>
+						var startTime = DateTime.Parse(((DateTime)defaultParams["<#=column.Name #>"]).ToString("yyyy-MM-dd"));
+						var endTime = DateTime.Parse(((DateTime)defaultParams["<#=column.Name #>"]).AddDays(1).ToString("yyyy-MM-dd"));
+						whereStr.Append(@" and <#=column.Name #>>=@<#=column.Name #>_Start and <#=column.Name #><@<#=column.Name #>_End ");
+						paramsTemp.Add("@<#=column.Name #>_Start",startTime);
+						paramsTemp.Add("@<#=column.Name #>_End",endTime);
+					<# 
+					}
+					else
+					{
+					#>
+						whereStr.Append(@" and <#=column.Name #>=@<#=column.Name #> ");
+						paramsTemp.Add("@<#=column.Name #>",defaultParams["<#=column.Name #>"]);
+					<# 
+					}
+					#>
+					}
+            <# 
+				}
+			#>
+			#endregion
+			#region 自定义查询
+				//whereStr.Append(@"columnName=@columnName");
+				//paramsTemp.Add("columnName",searchParams["columnName"]);
+			#endregion
+			return _<#=view.Name.ToLower() #>AdoDAL.GetDataTableCount(whereStr.ToString(),paramsTemp);
+		}
+		
+}
+<# 
+}
+#>
+<# manager.EndBlock(); #>
+	
+<# manager.Process(true); #>

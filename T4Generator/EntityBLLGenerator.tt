@@ -1,0 +1,176 @@
+﻿<#@ template language="C#" hostspecific="True"#>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.ConnectionInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Management.Sdk.Sfc.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Smo.dll" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@include file="Manager.ttinclude"#>
+<#@include file="AdoHelper.ttinclude"#>
+<#
+var manager = Manager.Create(Host, GenerationEnvironment);
+var adoHelper = new AdoHelper();
+#>
+<# manager.StartHeader(); #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DomainModelLayer;
+
+namespace BusinessLogicLayer.Entity
+{
+<# manager.EndBlock(); #>
+    
+<# manager.StartFooter(); #>
+}
+<# manager.EndBlock(); #>
+
+<#
+    Server server = new Server();
+    Database database = new Database(server, "ReportServer");
+	database.Refresh();
+#>
+
+<# 
+foreach(Table table in database.Tables)
+{
+//	if(table.Name != "BaseStation")
+//		continue;
+	table.Refresh();
+	table.Columns.Refresh();
+#>
+<# 
+		string primaryKeyType = string.Empty;
+		string primaryKeyName = string.Empty;
+		List<Column> pKeyColumns = adoHelper.GetPrimaryKeys(table);
+		primaryKeyType = pKeyColumns.Count>0?adoHelper.ChangeToCSharpType(pKeyColumns[0].DataType.ToString()):"String";
+		primaryKeyName = pKeyColumns.Count>0?pKeyColumns[0].Name:table.Columns[0].Name;
+#>
+<# manager.StartNewFile(table.Name + "EntityBLL.cs"); #>
+
+	public class <#=table.Name #>EntityBLL
+    {
+        private MWTSEntities _mwtsEntities;
+        public MWTSEntities MwtsEntities
+        {
+            get
+            {
+                if (_mwtsEntities == null)
+                    _mwtsEntities = new MWTSEntities();
+                return _mwtsEntities;
+            }
+        }
+
+        public <#=table.Name #>EntityBLL()
+        {
+        }
+
+        public IQueryable<<#=table.Name #>> GetList()
+        {
+            return MwtsEntities.<#=table.Name #>s.AsQueryable();//.Include("子对象").AsQueryable();
+        }
+
+        public IQueryable<<#=table.Name #>> GetList(List<string> searchKeys, <#=table.Name #> model, Dictionary<string, object> searchParams)
+        {
+            return GetList(searchKeys, model, searchParams, null, null);
+        }
+
+        public IQueryable<<#=table.Name #>> GetList(List<string> searchKeys, <#=table.Name #> model, Dictionary<string, object> searchParams, int? pageIndex, int? rowCount)
+        {
+            //var modelQuery = MwtsEntities.<#=table.Name #>s.AsQueryable();
+			var modelQuery = new MWTSEntities().<#=table.Name #>s.AsQueryable();//.Include("子对象").AsQueryable();
+			
+			#region 默认查询条件
+			<#
+				foreach(Column column in table.Columns)
+				{
+			#>
+            if (searchKeys.Contains("<#=column.Name #>"))
+            {
+				<#
+					if(new string[]{"datetime","datetime2"}.ToList().Contains(column.DataType.Name.ToLower()))
+					{
+						#>
+						<#if(column.Nullable)
+						{#>
+				if(model.<#=column.Name #>.Value!=null)
+				{
+						<# 
+						}#>
+				var startTime = DateTime.Parse(model.<#=column.Name #><#= column.Nullable?".Value":string.Empty #>.ToString("yyyy-MM-dd"));
+				var endTime = DateTime.Parse(model.<#=column.Name #><#= column.Nullable?".Value":string.Empty #>.AddDays(1).ToString("yyyy-MM-dd"));
+                modelQuery = modelQuery.Where(item => item.<#=column.Name #> >= startTime && item.<#=column.Name #> < endTime);
+						<#if(column.Nullable)
+						{#>
+				}
+						<# 
+						}#>
+						<#
+					}
+					else
+					{
+						#>
+                modelQuery = modelQuery.Where(item => item.<#=column.Name #> == model.<#=column.Name #>);
+						<#
+					}
+				#>
+			}
+            <# 
+				}
+			#>
+			#endregion
+
+			#region 自定义查询条件
+            if (searchParams.Count > 0)
+            {
+                //扩展查询条件
+            }
+			#endregion
+			
+			#region 翻页逻辑
+            if (pageIndex != null && rowCount != null)
+            {
+			  int skip = ((int)pageIndex - 1) * (int)rowCount;
+			  int take = (int)rowCount;
+              modelQuery =  modelQuery.OrderBy(item => item.<#=primaryKeyName #>).Skip(skip>0?skip:0).Take(take);
+            }
+			#endregion
+			
+            return modelQuery;
+        }
+
+        public <#=table.Name #> GetByKey(<#= primaryKeyType#> key)
+        {
+            return MwtsEntities.<#=table.Name #>s.Where(item => item.<#=primaryKeyName  #> == key).FirstOrDefault();
+        }
+
+        public bool CheckExist(<#=primaryKeyType  #> key)
+        {
+            return MwtsEntities.<#=table.Name #>s.Where(item => item.<#=primaryKeyName  #> == key).Count() > 0;
+        }
+
+        public void Add(<#=table.Name #> model)
+        {
+            MwtsEntities.<#=table.Name #>s.AddObject(model);
+            Save();
+        }
+
+        public void DeleteByKey(<#=primaryKeyType  #> key)
+        {
+            var model = GetByKey(key);
+            if (model == null) return;
+            MwtsEntities.<#=table.Name #>s.DeleteObject(model);
+            Save();
+        }
+
+        public void Save()
+        {
+            MwtsEntities.SaveChanges();
+        }
+}
+<# 
+}
+#>
+<# manager.EndBlock(); #>
+	
+<# manager.Process(true); #>

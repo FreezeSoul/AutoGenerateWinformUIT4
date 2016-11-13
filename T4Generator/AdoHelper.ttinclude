@@ -1,0 +1,160 @@
+﻿<#@ template language="C#" hostspecific="True"#>
+<#@ assembly name="System.Core"
+#><#@ assembly name="System.Data.Linq"
+#><#@ assembly name="EnvDTE"
+#><#@ assembly name="System.Xml"
+#><#@ assembly name="System.Xml.Linq"
+#><#@ import namespace="System"
+#><#@ import namespace="System.CodeDom"
+#><#@ import namespace="System.CodeDom.Compiler"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.Data.Linq"
+#><#@ import namespace="System.Data.Linq.Mapping"
+#><#@ import namespace="System.IO"
+#><#@ import namespace="System.Linq"
+#><#@ import namespace="System.Reflection"
+#><#@ import namespace="System.Text"
+#><#@ import namespace="System.Xml.Linq"#>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#+
+class AdoHelper {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="obj"></param>
+	/// <returns></returns>
+	public bool IsNullable<T>(T obj)
+    {
+        if (obj == null) return true; // obvious
+        Type type = typeof(T);
+        if (!type.IsValueType) return true; // ref-type
+        if (Nullable.GetUnderlyingType(type) != null) return true; // Nullable<T>
+        return false; // value-type
+    }
+	/// <summary>
+	///
+	/// </summary>
+	/// <param name="Table"> </param>
+	/// <returns></returns>
+	public List<Column> GetPrimaryKeys(Table table)
+	{
+		List<Column> columns = new List<Column>();
+		foreach(Column column in table.Columns)
+		{
+			if(column.InPrimaryKey)
+				columns.Add(column);
+		}
+		return columns;
+	}
+	/// <summary>
+	///
+	/// </summary>
+	/// <param name="Table"> </param>
+	/// <returns></returns>
+	public List<Column> GetForeignKeys(Table table)
+	{
+		List<Column> columns = new List<Column>();
+		foreach(Column column in table.Columns)
+		{
+			if(column.IsForeignKey)
+				columns.Add(column);
+		}
+		return columns;
+	}
+	/// <summary>
+	/// 数据库中与C#中的数据类型对照
+	/// </summary>
+	/// <param name="type">Sql Server中数据类型</param>
+	/// <returns>C#中数据类型</returns>
+	public string ChangeToCSharpType(string type)
+	{
+	    string reval = string.Empty;
+	    switch (type.ToLower())
+	    {
+	        case "int":
+	            reval = "Int32";
+	            break;
+	        case "text":
+	            reval = "String";
+	            break;
+	        case "bigint":
+	            reval = "Int64";
+	            break;
+	        case "binary":
+	            reval = "System.Byte[]";
+	            break;
+	        case "bit":
+	            reval = "Boolean";
+	            break;
+	        case "char":
+	            reval = "String";
+	            break;
+	        case "datetime":
+	            reval = "System.DateTime";
+	            break;
+			case "datetime2":
+	            reval = "System.DateTime";
+	            break;
+	        case "decimal":
+	            reval = "System.Decimal";
+	            break;
+	        case "float":
+	            reval = "System.Double";
+	            break;
+	        case "image":
+	            reval = "System.Byte[]";
+	            break;
+	        case "money":
+	            reval = "System.Decimal";
+	            break;
+	        case "nchar":
+	            reval = "String";
+	            break;
+	        case "ntext":
+	            reval = "String";
+	            break;
+	        case "numeric":
+	            reval = "System.Decimal";
+	            break;
+	        case "nvarchar":
+	            reval = "String";
+	            break;
+	        case "real":
+	            reval = "System.Single";
+	            break;
+	        case "smalldatetime":
+	            reval = "System.DateTime";
+	            break;
+	        case "smallint":
+	            reval = "Int16";
+	            break;
+	        case "smallmoney":
+	            reval = "System.Decimal";
+	            break;
+	        case "timestamp":
+	            reval = "System.DateTime";
+	            break;
+	        case "tinyint":
+	            reval = "System.Byte";
+	            break;
+	        case "uniqueidentifier":
+	            reval = "System.Guid";
+	            break;
+	        case "varbinary":
+	            reval = "System.Byte[]";
+	            break;
+	        case "varchar":
+	            reval = "String";
+	            break;
+	        case "Variant":
+	            reval = "Object";
+	            break;
+	        default:
+	            reval = "String";
+	            break;
+	    }
+	    return reval;
+	}
+}
+#>

@@ -1,0 +1,140 @@
+﻿<#@ template language="C#" hostspecific="True"#>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.ConnectionInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Management.Sdk.Sfc.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Smo.dll" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@include file="Manager.ttinclude"#>
+<#@include file="AdoHelper.ttinclude"#>
+<#
+var manager = Manager.Create(Host, GenerationEnvironment);
+var adoHelper = new AdoHelper();
+#>
+<# manager.StartHeader(); #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+
+namespace DataAccessLayer.Ado
+{
+<# manager.EndBlock(); #>
+    
+<# manager.StartFooter(); #>
+}
+<# manager.EndBlock(); #>
+
+<#
+    Server server = new Server();
+    Database database = new Database(server, "ReportServer");
+	database.Refresh();
+#>
+
+<# 
+foreach(View view in database.Views)
+{
+//	if(view.Name != "BaseStation")
+//		continue;
+	if(view.IsSystemObject)
+		continue;
+	view.Refresh();
+	view.Columns.Refresh();
+#>
+<# manager.StartNewFile(view.Name + "AdoDAL.cs"); #>
+
+	public class <#=view.Name #>AdoDAL
+    {
+        
+        private const string TableName = @"<#=view.Name #>";
+		
+		private const string PagingTemplate = @"SELECT  RowIndex ,
+                                                                                    T.*
+                                                                            FROM    ( SELECT    T2.* ,
+                                                                                                ROW_NUMBER() OVER ( ORDER BY {0} DESC ) AS RowIndex
+                                                                                      FROM   ( {1} )  T2
+                                                                                    ) AS T
+                                                                            WHERE   T.RowIndex > {2}
+                                                                            AND T.RowIndex <= {3}";
+		
+		private Database _db ;
+		
+        public <#=view.Name #>AdoDAL()
+        {
+			 _db = DatabaseFactory.CreateDatabase();
+        }
+		
+		public <#=view.Name #>AdoDAL(string connectionStringName)
+        {
+			 _db = DatabaseFactory.CreateDatabase(connectionStringName);
+        }
+		
+		public int GetDataTableCount(string searchString,Dictionary<string, object> searchParams)
+		{
+			var sqlStr = string.Format(@"SELECT COUNT(*) FROM {0} {1}",TableName,searchString);
+			var dbCommand = _db.GetSqlStringCommand(sqlStr);
+            if (searchParams != null)
+            {
+                searchParams.ToList().ForEach(item =>
+                {
+                    var param = dbCommand.CreateParameter();
+                    param.ParameterName = item.Key;
+                    param.Value = item.Value;
+                    dbCommand.Parameters.Add(param);
+                });
+            }
+            var obj = _db.ExecuteScalar(dbCommand);
+			int i = 0;
+			if(obj!=null)
+			{
+				int.TryParse(obj.ToString(),out i);
+			}
+			return i;
+		}
+		
+		public DataTable GetPageDataTable(string searchString,string sortColumn,Dictionary<string, object> searchParams)
+		{
+			var sqlStr = string.Format(@"SELECT * FROM {0} {1} ORDER BY {2} DESC",TableName,searchString,sortColumn);
+			
+			var dbCommand = _db.GetSqlStringCommand(sqlStr);
+			
+            if (searchParams != null)
+            {
+                searchParams.ToList().ForEach(item =>
+                {
+                    var param = dbCommand.CreateParameter();
+                    param.ParameterName = item.Key;
+                    param.Value = item.Value;
+                    dbCommand.Parameters.Add(param);
+                });
+            }
+            return _db.ExecuteDataSet(dbCommand).Tables[0];
+		}
+		
+		public DataTable GetPageDataTable(string searchString,string sortColumn,Dictionary<string, object> searchParams, int rowStart, int rowEnd)
+		{
+			var sqlStr = string.Format(@"SELECT * FROM {0} {1}", TableName, searchString);
+
+            sqlStr = string.Format(PagingTemplate, sortColumn, sqlStr, rowStart, rowEnd);
+			
+			var dbCommand = _db.GetSqlStringCommand(sqlStr);
+            if (searchParams != null)
+            {
+                searchParams.ToList().ForEach(item =>
+                {
+                    var param = dbCommand.CreateParameter();
+                    param.ParameterName = item.Key;
+                    param.Value = item.Value;
+                    dbCommand.Parameters.Add(param);
+                });
+            }
+            return _db.ExecuteDataSet(dbCommand).Tables[0];
+		}
+}
+<# 
+}
+#>
+<# manager.EndBlock(); #>
+	
+<# manager.Process(true); #>

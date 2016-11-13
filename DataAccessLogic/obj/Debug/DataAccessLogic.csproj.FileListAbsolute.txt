@@ -1,0 +1,5 @@
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\DataAccessLogic\bin\Debug\DataAccessLogic.dll
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\DataAccessLogic\bin\Debug\DataAccessLogic.pdb
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\DataAccessLogic\obj\Debug\ResolveAssemblyReference.cache
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\DataAccessLogic\obj\Debug\DataAccessLogic.dll
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\DataAccessLogic\obj\Debug\DataAccessLogic.pdb

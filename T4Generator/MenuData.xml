@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MenuTree IsClear="False">
+  <MenuGroup Name="FormEditor_NavBarGroup" Expanded="True" Describe="数据维护">
+  	    <MenuItem IconPath="" Name="Menu_T_ActiveSubscriptions" Describe="ActiveSubscriptions" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ActiveSubscriptions_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Batch" Describe="Batch" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Batch_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_CachePolicy" Describe="CachePolicy" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="CachePolicy_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Catalog" Describe="Catalog" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Catalog_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ChunkData" Describe="ChunkData" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ChunkData_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ChunkSegmentMapping" Describe="ChunkSegmentMapping" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ChunkSegmentMapping_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ConfigurationInfo" Describe="ConfigurationInfo" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ConfigurationInfo_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_DataSets" Describe="DataSets" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="DataSets_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_DataSource" Describe="DataSource" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="DataSource_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_DBUpgradeHistory" Describe="DBUpgradeHistory" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="DBUpgradeHistory_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Event" Describe="Event" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Event_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ExecutionLogStorage" Describe="ExecutionLogStorage" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ExecutionLogStorage_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_History" Describe="History" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="History_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Keys" Describe="Keys" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Keys_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ModelDrill" Describe="ModelDrill" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ModelDrill_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ModelItemPolicy" Describe="ModelItemPolicy" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ModelItemPolicy_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ModelPerspective" Describe="ModelPerspective" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ModelPerspective_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Notifications" Describe="Notifications" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Notifications_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Policies" Describe="Policies" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Policies_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_PolicyUserRole" Describe="PolicyUserRole" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="PolicyUserRole_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ReportSchedule" Describe="ReportSchedule" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ReportSchedule_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Roles" Describe="Roles" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Roles_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_RunningJobs" Describe="RunningJobs" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="RunningJobs_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Schedule" Describe="Schedule" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Schedule_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_SecData" Describe="SecData" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="SecData_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Segment" Describe="Segment" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Segment_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_SegmentedChunk" Describe="SegmentedChunk" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="SegmentedChunk_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ServerParametersInstance" Describe="ServerParametersInstance" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ServerParametersInstance_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_ServerUpgradeHistory" Describe="ServerUpgradeHistory" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="ServerUpgradeHistory_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_SnapshotData" Describe="SnapshotData" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="SnapshotData_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Subscriptions" Describe="Subscriptions" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Subscriptions_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_SubscriptionsBeingDeleted" Describe="SubscriptionsBeingDeleted" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="SubscriptionsBeingDeleted_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_UpgradeInfo" Describe="UpgradeInfo" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="UpgradeInfo_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_T_Users" Describe="Users" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Users_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu02" Describe="员工管理1" Type="UserControl" NameSpace="ApplicationMainForm" ClassName="XtraUserControl2"  IsShowing ="True"></MenuItem>
+  </MenuGroup>
+  <MenuGroup Name="ReportViewer_NavBarGroup" Describe="报表查询">
+    <MenuItem IconPath="" Name="Menu03" Describe="员工报表查询" Type="XtraForm" NameSpace="ApplicationMainForm" ClassName="XtraForm1"  IsShowing ="True"></MenuItem>
+  	    <MenuItem IconPath="" Name="Menu_V_ExecutionLog" Describe="ExecutionLog" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExecutionLog_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_V_ExecutionLog2" Describe="ExecutionLog2" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExecutionLog2_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_V_ExecutionLog3" Describe="ExecutionLog3" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExecutionLog3_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_V_ExtendedDataSets" Describe="ExtendedDataSets" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExtendedDataSets_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+        <MenuItem IconPath="" Name="Menu_V_ExtendedDataSources" Describe="ExtendedDataSources" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExtendedDataSources_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+      </MenuGroup>
+</MenuTree>
+	

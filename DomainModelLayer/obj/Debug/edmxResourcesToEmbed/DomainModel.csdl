@@ -1,0 +1,978 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MWTSModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MWTSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ActiveSubscriptions" EntityType="MWTSModel.ActiveSubscriptions" />
+    <EntitySet Name="CachePolicy" EntityType="MWTSModel.CachePolicy" />
+    <EntitySet Name="Catalog" EntityType="MWTSModel.Catalog" />
+    <EntitySet Name="ChunkData" EntityType="MWTSModel.ChunkData" />
+    <EntitySet Name="ChunkSegmentMapping" EntityType="MWTSModel.ChunkSegmentMapping" />
+    <EntitySet Name="ConfigurationInfo" EntityType="MWTSModel.ConfigurationInfo" />
+    <EntitySet Name="DataSets" EntityType="MWTSModel.DataSets" />
+    <EntitySet Name="DataSource" EntityType="MWTSModel.DataSource" />
+    <EntitySet Name="DBUpgradeHistory" EntityType="MWTSModel.DBUpgradeHistory" />
+    <EntitySet Name="Event" EntityType="MWTSModel.Event" />
+    <EntitySet Name="ExecutionLogStorage" EntityType="MWTSModel.ExecutionLogStorage" />
+    <EntitySet Name="History" EntityType="MWTSModel.History" />
+    <EntitySet Name="Keys" EntityType="MWTSModel.Keys" />
+    <EntitySet Name="ModelDrill" EntityType="MWTSModel.ModelDrill" />
+    <EntitySet Name="ModelItemPolicy" EntityType="MWTSModel.ModelItemPolicy" />
+    <EntitySet Name="Notifications" EntityType="MWTSModel.Notifications" />
+    <EntitySet Name="Policies" EntityType="MWTSModel.Policies" />
+    <EntitySet Name="PolicyUserRole" EntityType="MWTSModel.PolicyUserRole" />
+    <EntitySet Name="Roles" EntityType="MWTSModel.Roles" />
+    <EntitySet Name="RunningJobs" EntityType="MWTSModel.RunningJobs" />
+    <EntitySet Name="Schedule" EntityType="MWTSModel.Schedule" />
+    <EntitySet Name="SecData" EntityType="MWTSModel.SecData" />
+    <EntitySet Name="Segment" EntityType="MWTSModel.Segment" />
+    <EntitySet Name="SegmentedChunk" EntityType="MWTSModel.SegmentedChunk" />
+    <EntitySet Name="ServerParametersInstance" EntityType="MWTSModel.ServerParametersInstance" />
+    <EntitySet Name="ServerUpgradeHistory" EntityType="MWTSModel.ServerUpgradeHistory" />
+    <EntitySet Name="SnapshotData" EntityType="MWTSModel.SnapshotData" />
+    <EntitySet Name="Subscriptions" EntityType="MWTSModel.Subscriptions" />
+    <EntitySet Name="SubscriptionsBeingDeleted" EntityType="MWTSModel.SubscriptionsBeingDeleted" />
+    <EntitySet Name="UpgradeInfo" EntityType="MWTSModel.UpgradeInfo" />
+    <EntitySet Name="Users" EntityType="MWTSModel.Users" />
+    <EntitySet Name="Batch" EntityType="MWTSModel.Batch" />
+    <EntitySet Name="ModelPerspective" EntityType="MWTSModel.ModelPerspective" />
+    <EntitySet Name="ReportSchedule" EntityType="MWTSModel.ReportSchedule" />
+    <AssociationSet Name="FK_ActiveSubscriptions_Subscriptions" Association="MWTSModel.FK_ActiveSubscriptions_Subscriptions">
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+      <End Role="ActiveSubscriptions" EntitySet="ActiveSubscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CachePolicyReportID" Association="MWTSModel.FK_CachePolicyReportID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="CachePolicy" EntitySet="CachePolicy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_CreatedByID" Association="MWTSModel.FK_Catalog_CreatedByID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Catalog" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_LinkSourceID" Association="MWTSModel.FK_Catalog_LinkSourceID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="Catalog1" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_ModifiedByID" Association="MWTSModel.FK_Catalog_ModifiedByID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Catalog" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_ParentID" Association="MWTSModel.FK_Catalog_ParentID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="Catalog1" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_Policy" Association="MWTSModel.FK_Catalog_Policy">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="Catalog" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataSetItemID" Association="MWTSModel.FK_DataSetItemID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="DataSets" EntitySet="DataSets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataSetLinkID" Association="MWTSModel.FK_DataSetLinkID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="DataSets" EntitySet="DataSets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataSourceItemID" Association="MWTSModel.FK_DataSourceItemID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="DataSource" EntitySet="DataSource" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelDrillModel" Association="MWTSModel.FK_ModelDrillModel">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ModelDrill" EntitySet="ModelDrill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelDrillReport" Association="MWTSModel.FK_ModelDrillReport">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ModelDrill" EntitySet="ModelDrill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelPerspectiveModel" Association="MWTSModel.FK_ModelPerspectiveModel">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ModelPerspective" EntitySet="ModelPerspective" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportSchedule_Report" Association="MWTSModel.FK_ReportSchedule_Report">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ReportSchedule" EntitySet="ReportSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscriptions_Catalog" Association="MWTSModel.FK_Subscriptions_Catalog">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PoliciesPolicyID" Association="MWTSModel.FK_PoliciesPolicyID">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="ModelItemPolicy" EntitySet="ModelItemPolicy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notifications_Subscriptions" Association="MWTSModel.FK_Notifications_Subscriptions">
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+      <End Role="Notifications" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolicyUserRole_Policy" Association="MWTSModel.FK_PolicyUserRole_Policy">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="PolicyUserRole" EntitySet="PolicyUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SecDataPolicyID" Association="MWTSModel.FK_SecDataPolicyID">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="SecData" EntitySet="SecData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolicyUserRole_Role" Association="MWTSModel.FK_PolicyUserRole_Role">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="PolicyUserRole" EntitySet="PolicyUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolicyUserRole_User" Association="MWTSModel.FK_PolicyUserRole_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PolicyUserRole" EntitySet="PolicyUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportSchedule_Schedule" Association="MWTSModel.FK_ReportSchedule_Schedule">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="ReportSchedule" EntitySet="ReportSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Users" Association="MWTSModel.FK_Schedule_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportSchedule_Subscriptions" Association="MWTSModel.FK_ReportSchedule_Subscriptions">
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+      <End Role="ReportSchedule" EntitySet="ReportSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscriptions_ModifiedBy" Association="MWTSModel.FK_Subscriptions_ModifiedBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscriptions_Owner" Association="MWTSModel.FK_Subscriptions_Owner">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ActiveSubscriptions">
+    <Key>
+      <PropertyRef Name="ActiveID" />
+    </Key>
+    <Property Name="ActiveID" Type="Guid" Nullable="false" />
+    <Property Name="SubscriptionID" Type="Guid" Nullable="false" />
+    <Property Name="TotalNotifications" Type="Int32" />
+    <Property Name="TotalSuccesses" Type="Int32" Nullable="false" />
+    <Property Name="TotalFailures" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Subscriptions" Relationship="MWTSModel.FK_ActiveSubscriptions_Subscriptions" FromRole="ActiveSubscriptions" ToRole="Subscriptions" />
+  </EntityType>
+  <EntityType Name="CachePolicy">
+    <Key>
+      <PropertyRef Name="CachePolicyID" />
+    </Key>
+    <Property Name="CachePolicyID" Type="Guid" Nullable="false" />
+    <Property Name="ReportID" Type="Guid" Nullable="false" />
+    <Property Name="ExpirationFlags" Type="Int32" Nullable="false" />
+    <Property Name="CacheExpiration" Type="Int32" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_CachePolicyReportID" FromRole="CachePolicy" ToRole="Catalog" />
+  </EntityType>
+  <EntityType Name="Catalog">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Guid" Nullable="false" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="Guid" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Intermediate" Type="Guid" />
+    <Property Name="SnapshotDataID" Type="Guid" />
+    <Property Name="LinkSourceID" Type="Guid" />
+    <Property Name="Property" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="Hidden" Type="Boolean" />
+    <Property Name="CreatedByID" Type="Guid" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedByID" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MimeType" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="SnapshotLimit" Type="Int32" />
+    <Property Name="Parameter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PolicyID" Type="Guid" Nullable="false" />
+    <Property Name="PolicyRoot" Type="Boolean" Nullable="false" />
+    <Property Name="ExecutionFlag" Type="Int32" Nullable="false" />
+    <Property Name="ExecutionTime" Type="DateTime" Precision="3" />
+    <Property Name="SubType" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ComponentID" Type="Guid" />
+    <NavigationProperty Name="CachePolicy" Relationship="MWTSModel.FK_CachePolicyReportID" FromRole="Catalog" ToRole="CachePolicy" />
+    <NavigationProperty Name="Users" Relationship="MWTSModel.FK_Catalog_CreatedByID" FromRole="Catalog" ToRole="Users" />
+    <NavigationProperty Name="Catalog1" Relationship="MWTSModel.FK_Catalog_LinkSourceID" FromRole="Catalog" ToRole="Catalog1" />
+    <NavigationProperty Name="Catalog2" Relationship="MWTSModel.FK_Catalog_LinkSourceID" FromRole="Catalog1" ToRole="Catalog" />
+    <NavigationProperty Name="Users1" Relationship="MWTSModel.FK_Catalog_ModifiedByID" FromRole="Catalog" ToRole="Users" />
+    <NavigationProperty Name="Catalog11" Relationship="MWTSModel.FK_Catalog_ParentID" FromRole="Catalog" ToRole="Catalog1" />
+    <NavigationProperty Name="Catalog3" Relationship="MWTSModel.FK_Catalog_ParentID" FromRole="Catalog1" ToRole="Catalog" />
+    <NavigationProperty Name="Policies" Relationship="MWTSModel.FK_Catalog_Policy" FromRole="Catalog" ToRole="Policies" />
+    <NavigationProperty Name="DataSets" Relationship="MWTSModel.FK_DataSetItemID" FromRole="Catalog" ToRole="DataSets" />
+    <NavigationProperty Name="DataSets1" Relationship="MWTSModel.FK_DataSetLinkID" FromRole="Catalog" ToRole="DataSets" />
+    <NavigationProperty Name="DataSource" Relationship="MWTSModel.FK_DataSourceItemID" FromRole="Catalog" ToRole="DataSource" />
+    <NavigationProperty Name="ModelDrill" Relationship="MWTSModel.FK_ModelDrillModel" FromRole="Catalog" ToRole="ModelDrill" />
+    <NavigationProperty Name="ModelDrill1" Relationship="MWTSModel.FK_ModelDrillReport" FromRole="Catalog" ToRole="ModelDrill" />
+    <NavigationProperty Name="ModelPerspective" Relationship="MWTSModel.FK_ModelPerspectiveModel" FromRole="Catalog" ToRole="ModelPerspective" />
+    <NavigationProperty Name="ReportSchedule" Relationship="MWTSModel.FK_ReportSchedule_Report" FromRole="Catalog" ToRole="ReportSchedule" />
+    <NavigationProperty Name="Subscriptions" Relationship="MWTSModel.FK_Subscriptions_Catalog" FromRole="Catalog" ToRole="Subscriptions" />
+  </EntityType>
+  <EntityType Name="ChunkData">
+    <Key>
+      <PropertyRef Name="ChunkID" />
+    </Key>
+    <Property Name="ChunkID" Type="Guid" Nullable="false" />
+    <Property Name="SnapshotDataID" Type="Guid" Nullable="false" />
+    <Property Name="ChunkFlags" Type="Byte" />
+    <Property Name="ChunkName" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="ChunkType" Type="Int32" />
+    <Property Name="Version" Type="Int16" />
+    <Property Name="MimeType" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ChunkSegmentMapping">
+    <Key>
+      <PropertyRef Name="ChunkId" />
+      <PropertyRef Name="SegmentId" />
+    </Key>
+    <Property Name="ChunkId" Type="Guid" Nullable="false" />
+    <Property Name="SegmentId" Type="Guid" Nullable="false" />
+    <Property Name="StartByte" Type="Int64" Nullable="false" />
+    <Property Name="LogicalByteCount" Type="Int32" Nullable="false" />
+    <Property Name="ActualByteCount" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConfigurationInfo">
+    <Key>
+      <PropertyRef Name="ConfigInfoID" />
+    </Key>
+    <Property Name="ConfigInfoID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DataSets">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="ItemID" Type="Guid" Nullable="false" />
+    <Property Name="LinkID" Type="Guid" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_DataSetItemID" FromRole="DataSets" ToRole="Catalog" />
+    <NavigationProperty Name="Catalog1" Relationship="MWTSModel.FK_DataSetLinkID" FromRole="DataSets" ToRole="Catalog" />
+  </EntityType>
+  <EntityType Name="DataSource">
+    <Key>
+      <PropertyRef Name="DSID" />
+    </Key>
+    <Property Name="DSID" Type="Guid" Nullable="false" />
+    <Property Name="ItemID" Type="Guid" />
+    <Property Name="SubscriptionID" Type="Guid" />
+    <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Extension" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Link" Type="Guid" />
+    <Property Name="CredentialRetrieval" Type="Int32" />
+    <Property Name="Prompt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ConnectionString" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="OriginalConnectionString" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="OriginalConnectStringExpressionBased" Type="Boolean" />
+    <Property Name="UserName" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Password" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Flags" Type="Int32" />
+    <Property Name="Version" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_DataSourceItemID" FromRole="DataSource" ToRole="Catalog" />
+  </EntityType>
+  <EntityType Name="DBUpgradeHistory">
+    <Key>
+      <PropertyRef Name="UpgradeID" />
+    </Key>
+    <Property Name="UpgradeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DbVersion" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="Guid" Nullable="false" />
+    <Property Name="EventType" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="EventData" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="TimeEntered" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProcessStart" Type="DateTime" Precision="3" />
+    <Property Name="ProcessHeartbeat" Type="DateTime" Precision="3" />
+    <Property Name="BatchID" Type="Guid" />
+  </EntityType>
+  <EntityType Name="ExecutionLogStorage">
+    <Key>
+      <PropertyRef Name="LogEntryId" />
+    </Key>
+    <Property Name="LogEntryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InstanceName" Type="String" Nullable="false" MaxLength="38" FixedLength="false" Unicode="true" />
+    <Property Name="ReportID" Type="Guid" />
+    <Property Name="UserName" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="ExecutionId" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="RequestType" Type="Byte" Nullable="false" />
+    <Property Name="Format" Type="String" MaxLength="26" FixedLength="false" Unicode="true" />
+    <Property Name="Parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReportAction" Type="Byte" />
+    <Property Name="TimeStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TimeEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TimeDataRetrieval" Type="Int32" Nullable="false" />
+    <Property Name="TimeProcessing" Type="Int32" Nullable="false" />
+    <Property Name="TimeRendering" Type="Int32" Nullable="false" />
+    <Property Name="Source" Type="Byte" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="ByteCount" Type="Int64" Nullable="false" />
+    <Property Name="RowCount" Type="Int64" Nullable="false" />
+    <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="HistoryID" />
+    </Key>
+    <Property Name="HistoryID" Type="Guid" Nullable="false" />
+    <Property Name="ReportID" Type="Guid" Nullable="false" />
+    <Property Name="SnapshotDataID" Type="Guid" Nullable="false" />
+    <Property Name="SnapshotDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Keys">
+    <Key>
+      <PropertyRef Name="InstallationID" />
+      <PropertyRef Name="Client" />
+    </Key>
+    <Property Name="MachineName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="InstallationID" Type="Guid" Nullable="false" />
+    <Property Name="InstanceName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Client" Type="Int32" Nullable="false" />
+    <Property Name="PublicKey" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="SymmetricKey" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ModelDrill">
+    <Key>
+      <PropertyRef Name="ModelDrillID" />
+    </Key>
+    <Property Name="ModelDrillID" Type="Guid" Nullable="false" />
+    <Property Name="ModelID" Type="Guid" Nullable="false" />
+    <Property Name="ReportID" Type="Guid" Nullable="false" />
+    <Property Name="ModelItemID" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_ModelDrillModel" FromRole="ModelDrill" ToRole="Catalog" />
+    <NavigationProperty Name="Catalog1" Relationship="MWTSModel.FK_ModelDrillReport" FromRole="ModelDrill" ToRole="Catalog" />
+  </EntityType>
+  <EntityType Name="ModelItemPolicy">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="CatalogItemID" Type="Guid" Nullable="false" />
+    <Property Name="ModelItemID" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="PolicyID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Policies" Relationship="MWTSModel.FK_PoliciesPolicyID" FromRole="ModelItemPolicy" ToRole="Policies" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Guid" Nullable="false" />
+    <Property Name="SubscriptionID" Type="Guid" Nullable="false" />
+    <Property Name="ActivationID" Type="Guid" />
+    <Property Name="ReportID" Type="Guid" Nullable="false" />
+    <Property Name="SnapShotDate" Type="DateTime" Precision="3" />
+    <Property Name="ExtensionSettings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Locale" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProcessStart" Type="DateTime" Precision="3" />
+    <Property Name="NotificationEntered" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProcessAfter" Type="DateTime" Precision="3" />
+    <Property Name="Attempt" Type="Int32" />
+    <Property Name="SubscriptionLastRunTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DeliveryExtension" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="SubscriptionOwnerID" Type="Guid" Nullable="false" />
+    <Property Name="IsDataDriven" Type="Boolean" Nullable="false" />
+    <Property Name="BatchID" Type="Guid" />
+    <Property Name="ProcessHeartbeat" Type="DateTime" Precision="3" />
+    <Property Name="Version" Type="Int32" Nullable="false" />
+    <Property Name="ReportZone" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Subscriptions" Relationship="MWTSModel.FK_Notifications_Subscriptions" FromRole="Notifications" ToRole="Subscriptions" />
+  </EntityType>
+  <EntityType Name="Policies">
+    <Key>
+      <PropertyRef Name="PolicyID" />
+    </Key>
+    <Property Name="PolicyID" Type="Guid" Nullable="false" />
+    <Property Name="PolicyFlag" Type="Byte" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_Catalog_Policy" FromRole="Policies" ToRole="Catalog" />
+    <NavigationProperty Name="ModelItemPolicy" Relationship="MWTSModel.FK_PoliciesPolicyID" FromRole="Policies" ToRole="ModelItemPolicy" />
+    <NavigationProperty Name="PolicyUserRole" Relationship="MWTSModel.FK_PolicyUserRole_Policy" FromRole="Policies" ToRole="PolicyUserRole" />
+    <NavigationProperty Name="SecData" Relationship="MWTSModel.FK_SecDataPolicyID" FromRole="Policies" ToRole="SecData" />
+  </EntityType>
+  <EntityType Name="PolicyUserRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="RoleID" Type="Guid" Nullable="false" />
+    <Property Name="UserID" Type="Guid" Nullable="false" />
+    <Property Name="PolicyID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Policies" Relationship="MWTSModel.FK_PolicyUserRole_Policy" FromRole="PolicyUserRole" ToRole="Policies" />
+    <NavigationProperty Name="Roles" Relationship="MWTSModel.FK_PolicyUserRole_Role" FromRole="PolicyUserRole" ToRole="Roles" />
+    <NavigationProperty Name="Users" Relationship="MWTSModel.FK_PolicyUserRole_User" FromRole="PolicyUserRole" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Guid" Nullable="false" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="TaskMask" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="RoleFlags" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="PolicyUserRole" Relationship="MWTSModel.FK_PolicyUserRole_Role" FromRole="Roles" ToRole="PolicyUserRole" />
+  </EntityType>
+  <EntityType Name="RunningJobs">
+    <Key>
+      <PropertyRef Name="JobID" />
+    </Key>
+    <Property Name="JobID" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ComputerName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="RequestName" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="RequestPath" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Timeout" Type="Int32" Nullable="false" />
+    <Property Name="JobAction" Type="Int16" Nullable="false" />
+    <Property Name="JobType" Type="Int16" Nullable="false" />
+    <Property Name="JobStatus" Type="Int16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+    </Key>
+    <Property Name="ScheduleID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Flags" Type="Int32" Nullable="false" />
+    <Property Name="NextRunTime" Type="DateTime" Precision="3" />
+    <Property Name="LastRunTime" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="RecurrenceType" Type="Int32" />
+    <Property Name="MinutesInterval" Type="Int32" />
+    <Property Name="DaysInterval" Type="Int32" />
+    <Property Name="WeeksInterval" Type="Int32" />
+    <Property Name="DaysOfWeek" Type="Int32" />
+    <Property Name="DaysOfMonth" Type="Int32" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="MonthlyWeek" Type="Int32" />
+    <Property Name="State" Type="Int32" />
+    <Property Name="LastRunStatus" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="ScheduledRunTimeout" Type="Int32" />
+    <Property Name="CreatedById" Type="Guid" Nullable="false" />
+    <Property Name="EventType" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="EventData" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="ConsistancyCheck" Type="DateTime" Precision="3" />
+    <Property Name="Path" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ReportSchedule" Relationship="MWTSModel.FK_ReportSchedule_Schedule" FromRole="Schedule" ToRole="ReportSchedule" />
+    <NavigationProperty Name="Users" Relationship="MWTSModel.FK_Schedule_Users" FromRole="Schedule" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="SecData">
+    <Key>
+      <PropertyRef Name="SecDataID" />
+    </Key>
+    <Property Name="SecDataID" Type="Guid" Nullable="false" />
+    <Property Name="PolicyID" Type="Guid" Nullable="false" />
+    <Property Name="AuthType" Type="Int32" Nullable="false" />
+    <Property Name="XmlDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NtSecDescPrimary" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="NtSecDescSecondary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Policies" Relationship="MWTSModel.FK_SecDataPolicyID" FromRole="SecData" ToRole="Policies" />
+  </EntityType>
+  <EntityType Name="Segment">
+    <Key>
+      <PropertyRef Name="SegmentId" />
+    </Key>
+    <Property Name="SegmentId" Type="Guid" Nullable="false" />
+    <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="SegmentedChunk">
+    <Key>
+      <PropertyRef Name="SegmentedChunkId" />
+    </Key>
+    <Property Name="ChunkId" Type="Guid" Nullable="false" />
+    <Property Name="SnapshotDataId" Type="Guid" Nullable="false" />
+    <Property Name="ChunkFlags" Type="Byte" Nullable="false" />
+    <Property Name="ChunkName" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="ChunkType" Type="Int32" Nullable="false" />
+    <Property Name="Version" Type="Int16" Nullable="false" />
+    <Property Name="MimeType" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="SegmentedChunkId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="ServerParametersInstance">
+    <Key>
+      <PropertyRef Name="ServerParametersID" />
+    </Key>
+    <Property Name="ServerParametersID" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Timeout" Type="Int32" Nullable="false" />
+    <Property Name="Expiration" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ParametersValues" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ServerUpgradeHistory">
+    <Key>
+      <PropertyRef Name="UpgradeID" />
+    </Key>
+    <Property Name="UpgradeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServerVersion" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="SnapshotData">
+    <Key>
+      <PropertyRef Name="SnapshotDataID" />
+    </Key>
+    <Property Name="SnapshotDataID" Type="Guid" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ParamsHash" Type="Int32" />
+    <Property Name="QueryParams" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EffectiveParams" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="DependsOnUser" Type="Boolean" />
+    <Property Name="PermanentRefcount" Type="Int32" Nullable="false" />
+    <Property Name="TransientRefcount" Type="Int32" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PageCount" Type="Int32" />
+    <Property Name="HasDocMap" Type="Boolean" />
+    <Property Name="PaginationMode" Type="Int16" />
+    <Property Name="ProcessingFlags" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Subscriptions">
+    <Key>
+      <PropertyRef Name="SubscriptionID" />
+    </Key>
+    <Property Name="SubscriptionID" Type="Guid" Nullable="false" />
+    <Property Name="OwnerID" Type="Guid" Nullable="false" />
+    <Property Name="Report_OID" Type="Guid" Nullable="false" />
+    <Property Name="Locale" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="InactiveFlags" Type="Int32" Nullable="false" />
+    <Property Name="ExtensionSettings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedByID" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="LastStatus" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="EventType" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="MatchData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastRunTime" Type="DateTime" Precision="3" />
+    <Property Name="Parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DataSettings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DeliveryExtension" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Version" Type="Int32" Nullable="false" />
+    <Property Name="ReportZone" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ActiveSubscriptions" Relationship="MWTSModel.FK_ActiveSubscriptions_Subscriptions" FromRole="Subscriptions" ToRole="ActiveSubscriptions" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_Subscriptions_Catalog" FromRole="Subscriptions" ToRole="Catalog" />
+    <NavigationProperty Name="Notifications" Relationship="MWTSModel.FK_Notifications_Subscriptions" FromRole="Subscriptions" ToRole="Notifications" />
+    <NavigationProperty Name="ReportSchedule" Relationship="MWTSModel.FK_ReportSchedule_Subscriptions" FromRole="Subscriptions" ToRole="ReportSchedule" />
+    <NavigationProperty Name="Users" Relationship="MWTSModel.FK_Subscriptions_ModifiedBy" FromRole="Subscriptions" ToRole="Users" />
+    <NavigationProperty Name="Users1" Relationship="MWTSModel.FK_Subscriptions_Owner" FromRole="Subscriptions" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="SubscriptionsBeingDeleted">
+    <Key>
+      <PropertyRef Name="SubscriptionID" />
+    </Key>
+    <Property Name="SubscriptionID" Type="Guid" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="UpgradeInfo">
+    <Key>
+      <PropertyRef Name="Item" />
+    </Key>
+    <Property Name="Item" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Guid" Nullable="false" />
+    <Property Name="Sid" Type="Binary" MaxLength="85" FixedLength="false" />
+    <Property Name="UserType" Type="Int32" Nullable="false" />
+    <Property Name="AuthType" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_Catalog_CreatedByID" FromRole="Users" ToRole="Catalog" />
+    <NavigationProperty Name="Catalog1" Relationship="MWTSModel.FK_Catalog_ModifiedByID" FromRole="Users" ToRole="Catalog" />
+    <NavigationProperty Name="PolicyUserRole" Relationship="MWTSModel.FK_PolicyUserRole_User" FromRole="Users" ToRole="PolicyUserRole" />
+    <NavigationProperty Name="Schedule" Relationship="MWTSModel.FK_Schedule_Users" FromRole="Users" ToRole="Schedule" />
+    <NavigationProperty Name="Subscriptions" Relationship="MWTSModel.FK_Subscriptions_ModifiedBy" FromRole="Users" ToRole="Subscriptions" />
+    <NavigationProperty Name="Subscriptions1" Relationship="MWTSModel.FK_Subscriptions_Owner" FromRole="Users" ToRole="Subscriptions" />
+  </EntityType>
+  <EntityType Name="Batch">
+    <Key>
+      <PropertyRef Name="BatchID" />
+      <PropertyRef Name="AddedOn" />
+      <PropertyRef Name="Action" />
+    </Key>
+    <Property Name="BatchID" Type="Guid" Nullable="false" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Name="Item" Type="String" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="Parent" Type="String" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="Param" Type="String" MaxLength="425" FixedLength="false" Unicode="true" />
+    <Property Name="BoolParam" Type="Boolean" />
+    <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Properties" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ModelPerspective">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ModelID" />
+      <PropertyRef Name="PerspectiveID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="ModelID" Type="Guid" Nullable="false" />
+    <Property Name="PerspectiveID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PerspectiveName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PerspectiveDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_ModelPerspectiveModel" FromRole="ModelPerspective" ToRole="Catalog" />
+  </EntityType>
+  <EntityType Name="ReportSchedule">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+      <PropertyRef Name="ReportID" />
+      <PropertyRef Name="ReportAction" />
+    </Key>
+    <Property Name="ScheduleID" Type="Guid" Nullable="false" />
+    <Property Name="ReportID" Type="Guid" Nullable="false" />
+    <Property Name="SubscriptionID" Type="Guid" />
+    <Property Name="ReportAction" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Catalog" Relationship="MWTSModel.FK_ReportSchedule_Report" FromRole="ReportSchedule" ToRole="Catalog" />
+    <NavigationProperty Name="Schedule" Relationship="MWTSModel.FK_ReportSchedule_Schedule" FromRole="ReportSchedule" ToRole="Schedule" />
+    <NavigationProperty Name="Subscriptions" Relationship="MWTSModel.FK_ReportSchedule_Subscriptions" FromRole="ReportSchedule" ToRole="Subscriptions" />
+  </EntityType>
+  <Association Name="FK_ActiveSubscriptions_Subscriptions">
+    <End Type="MWTSModel.Subscriptions" Role="Subscriptions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.ActiveSubscriptions" Role="ActiveSubscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Principal>
+      <Dependent Role="ActiveSubscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CachePolicyReportID">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.CachePolicy" Role="CachePolicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="CachePolicy">
+        <PropertyRef Name="ReportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_CreatedByID">
+    <End Type="MWTSModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Catalog">
+        <PropertyRef Name="CreatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_LinkSourceID">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="0..1" />
+    <End Type="MWTSModel.Catalog" Role="Catalog1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Catalog1">
+        <PropertyRef Name="LinkSourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_ModifiedByID">
+    <End Type="MWTSModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Catalog">
+        <PropertyRef Name="ModifiedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_ParentID">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="0..1" />
+    <End Type="MWTSModel.Catalog" Role="Catalog1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Catalog1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_Policy">
+    <End Type="MWTSModel.Policies" Role="Policies" Multiplicity="1" />
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="Catalog">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataSetItemID">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1" />
+    <End Type="MWTSModel.DataSets" Role="DataSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="DataSets">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataSetLinkID">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="0..1" />
+    <End Type="MWTSModel.DataSets" Role="DataSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="DataSets">
+        <PropertyRef Name="LinkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataSourceItemID">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="0..1" />
+    <End Type="MWTSModel.DataSource" Role="DataSource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="DataSource">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelDrillModel">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.ModelDrill" Role="ModelDrill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ModelDrill">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelDrillReport">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1" />
+    <End Type="MWTSModel.ModelDrill" Role="ModelDrill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ModelDrill">
+        <PropertyRef Name="ReportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelPerspectiveModel">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.ModelPerspective" Role="ModelPerspective" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ModelPerspective">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportSchedule_Report">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.ReportSchedule" Role="ReportSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ReportSchedule">
+        <PropertyRef Name="ReportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscriptions_Catalog">
+    <End Type="MWTSModel.Catalog" Role="Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.Subscriptions" Role="Subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Subscriptions">
+        <PropertyRef Name="Report_OID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PoliciesPolicyID">
+    <End Type="MWTSModel.Policies" Role="Policies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.ModelItemPolicy" Role="ModelItemPolicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="ModelItemPolicy">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notifications_Subscriptions">
+    <End Type="MWTSModel.Subscriptions" Role="Subscriptions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.Notifications" Role="Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="SubscriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolicyUserRole_Policy">
+    <End Type="MWTSModel.Policies" Role="Policies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.PolicyUserRole" Role="PolicyUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="PolicyUserRole">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SecDataPolicyID">
+    <End Type="MWTSModel.Policies" Role="Policies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.SecData" Role="SecData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="SecData">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolicyUserRole_Role">
+    <End Type="MWTSModel.Roles" Role="Roles" Multiplicity="1" />
+    <End Type="MWTSModel.PolicyUserRole" Role="PolicyUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="PolicyUserRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolicyUserRole_User">
+    <End Type="MWTSModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MWTSModel.PolicyUserRole" Role="PolicyUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="PolicyUserRole">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportSchedule_Schedule">
+    <End Type="MWTSModel.Schedule" Role="Schedule" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MWTSModel.ReportSchedule" Role="ReportSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleID" />
+      </Principal>
+      <Dependent Role="ReportSchedule">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Users">
+    <End Type="MWTSModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MWTSModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="CreatedById" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportSchedule_Subscriptions">
+    <End Type="MWTSModel.Subscriptions" Role="Subscriptions" Multiplicity="0..1" />
+    <End Type="MWTSModel.ReportSchedule" Role="ReportSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Principal>
+      <Dependent Role="ReportSchedule">
+        <PropertyRef Name="SubscriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscriptions_ModifiedBy">
+    <End Type="MWTSModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MWTSModel.Subscriptions" Role="Subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Subscriptions">
+        <PropertyRef Name="ModifiedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscriptions_Owner">
+    <End Type="MWTSModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MWTSModel.Subscriptions" Role="Subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Subscriptions">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

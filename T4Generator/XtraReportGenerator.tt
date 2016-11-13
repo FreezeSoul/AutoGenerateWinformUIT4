@@ -1,0 +1,959 @@
+﻿<#@ template language="C#" hostspecific="True"#>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.ConnectionInfo.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Management.Sdk.Sfc.dll" #>
+<#@ assembly name="$(SolutionDir)\T4Generator\Lib\Microsoft.SqlServer.Smo.dll" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@include file="Manager.ttinclude"#>
+<#@include file="DevHelper.ttinclude"#>
+<#@include file="AdoHelper.ttinclude"#>
+<#
+var manager = Manager.Create(Host, GenerationEnvironment);
+var devHelper = new DevHelper();
+var adoHelper = new AdoHelper();
+#>
+
+
+<# manager.StartHeader(); #>
+<# manager.EndBlock(); #>
+    
+<# manager.StartFooter(); #>
+<# manager.EndBlock(); #>
+
+<#
+    Server server = new Server();
+    Database database = new Database(server, "ReportServer");
+	database.Refresh();
+#>
+
+<# 
+foreach(View view in database.Views)
+{
+// 	if(view.Name != "TeamView")
+//		continue;
+ 	if(view.IsSystemObject)
+		continue;
+	view.Refresh();
+	view.Columns.Refresh();
+#>
+
+#region 数据维护查询用户控件生成逻辑
+
+	#region 后台代码
+	<# manager.StartNewFile(view.Name + "_Report_XtraUserControl.cs"); #>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Text;
+using System.Linq;
+using System.Windows.Forms;
+using DevExpress.XtraEditors;
+using DevExpress.XtraLayout.Utils;
+using ApplicationMainForm.UserControls.Edit;
+using ApplicationMainForm.UserControls.Common;
+using BusinessLogicLayer;
+using BusinessLogicLayer.Ado;
+using DomainModelLayer;
+using Infrastructure;
+using UILogic;
+
+namespace ApplicationMainForm.UserControls.Report
+{
+    public partial class <#=view.Name + "_Report_XtraUserControl"  #> : DevExpress.XtraEditors.XtraUserControl
+    {
+        public <#=view.Name + "_Report_XtraUserControl"  #>()
+        {
+            InitializeComponent();
+        }
+		
+		#region Property
+
+        private readonly  <#=view.Name#>AdoBLL _<#=view.Name.ToLower()#>AdoBll = new <#=view.Name#>AdoBLL();
+
+        private readonly int _pageSize = ConfigManagerHelper.GetIntAppSetting("PageSize");
+
+        private int _recordCount = -1;
+
+        #endregion
+
+        #region Method
+        /// <summary>
+        /// 自定义查询条件
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, object> GetSearchParams()
+        {
+            return new Dictionary<string, object>()
+                       {
+
+                       };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentPageIndex"></param>
+        private void BindData(int currentPageIndex)
+        {
+            var defaultParams = new Dictionary<string,object>();
+			
+			#region 查询条件赋值
+			<# 
+			foreach(Column column in view.Columns)
+			{
+			#>
+			<#=devHelper.GetControlValueStr(devHelper.GetControlTypeByColumnType(column.DataType.Name,false),column.Name,column.DataType.Name,adoHelper.ChangeToCSharpType(column.DataType.Name),"defaultParams")  #>
+			<# 
+			}
+			#>
+            #endregion
+			
+            _recordCount = _<#=view.Name.ToLower()#>AdoBll.GetDataTableCount(defaultParams, GetSearchParams());
+			
+			int from = ((int)currentPageIndex - 1) * (int)_pageSize;
+			int to = from+ (int)_pageSize;
+			var dtSearch = _<#=view.Name.ToLower()#>AdoBll.GetDataTable(defaultParams, GetSearchParams(), from, to);
+            
+			this.gridControl1.DataSource = dtSearch;
+			this.gridControl1.RefreshDataSource();
+        }
+
+        #endregion
+
+        #region Event
+
+        private void <#=view.Name#>_Report_XtraUserControl_Load(object sender, EventArgs e)
+        {
+            BindData(1);
+            paging_XtraUserControl1.SetPage(_pageSize, _recordCount, new Action<PagingHelper>(pagingHelper => BindData(pagingHelper.PageIndex)));
+			new  UILogic.EventInject.ButtonEventService().InitEvent(this);
+        }
+
+        private void Search_Action_SimpleButton_Click(object sender, EventArgs e)
+        {
+            BindData(1);
+            paging_XtraUserControl1.SetPage(_pageSize, _recordCount, new Action<PagingHelper>(pagingHelper => BindData(pagingHelper.PageIndex)));
+        }
+
+        private void Report_Action_SimpleButton_Click(object sender, EventArgs e)
+        {
+			
+        }
+        #endregion
+    }
+}
+	<# manager.EndBlock(); #>
+	#endregion
+	
+	#region 设计代码
+	<# manager.StartNewFile(view.Name +"_Report_XtraUserControl.Designer.cs"); #>
+namespace ApplicationMainForm.UserControls.Report
+{
+    partial class <#=view.Name + "_Report_XtraUserControl"  #>
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+		#region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+			<# //输入布局列数设置
+				var columnNum = 4;
+				var n = view.Columns.Count/columnNum+ (view.Columns.Count%columnNum>0?1:0);
+			#>
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+            this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #> = new DevExpress.XtraEditors.<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>();
+            <# 
+				}
+			#>
+			
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+            this.<#=column.Name #>_GridColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            <# 
+				}
+			#>
+            this.Search_Action_SimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.Report_Action_SimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= view.Columns.Count)
+					{
+			#>
+				this.<#=view.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#
+					}
+					if((i*columnNum+2)<= view.Columns.Count)
+					{
+			#>
+				this.<#=view.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#			
+					}
+					else
+					{
+			#>
+				this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem = new DevExpress.XtraLayout.EmptySpaceItem();
+			<#	
+					}
+					if((i*columnNum+3)<= view.Columns.Count)
+					{
+			#>
+				this.<#=view.Columns[(i*columnNum+2)].Name  #>_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#				
+					}
+					else
+					{
+			#>
+				this.NoControl<#=(i*columnNum+3).ToString()  #>_EmptySpaceItem = new DevExpress.XtraLayout.EmptySpaceItem();
+			<#	
+					}
+					if((i*columnNum+4)<= view.Columns.Count)
+					{
+			#>
+				this.<#=view.Columns[(i*columnNum+3)].Name  #>_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+			<#					
+					}
+					else
+					{
+			#>
+				this.NoControl<#=(i*columnNum+4).ToString()  #>_EmptySpaceItem = new DevExpress.XtraLayout.EmptySpaceItem();
+			<#	
+					}
+				}
+			#>
+			
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.paging_XtraUserControl1 = new ApplicationMainForm.UserControls.Paging_XtraUserControl();
+            this.Paging_LayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+	        this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+			
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= view.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem)).BeginInit();
+			<#
+					}
+					if((i*columnNum+2)<= view.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem)).BeginInit();
+			<#			
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem)).BeginInit();
+			<#	
+					}
+					if((i*columnNum+3)<= view.Columns.Count)
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+2)].Name  #>_LayoutControlItem)).BeginInit();
+			<#				
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+3).ToString()  #>_EmptySpaceItem)).BeginInit();
+			<#	
+					}
+					if((i*columnNum+4)<= view.Columns.Count)
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+3)].Name  #>_LayoutControlItem)).BeginInit();
+			<#					
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+4).ToString()  #>_EmptySpaceItem)).BeginInit();
+			<#	
+					}
+				}
+			#>
+
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Paging_LayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+			((System.ComponentModel.ISupportInitialize)( this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>.Properties)).BeginInit();
+            <# 
+				}
+			#>
+            this.SuspendLayout();
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.Controls.Add(this.layoutControl1);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl1.Location = new System.Drawing.Point(0, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(1193, 525);
+            this.groupControl1.TabIndex = 0;
+            this.groupControl1.Text = "groupControl1";
+			this.groupControl1.Text = "查询条件";
+
+            // 
+            // layoutControl1
+            // 
+            this.layoutControl1.Controls.Add(this.paging_XtraUserControl1);
+            this.layoutControl1.Controls.Add(this.gridControl1);
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+           this.layoutControl1.Controls.Add(this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>);
+            <# 
+				}
+			#>
+            this.layoutControl1.Controls.Add(this.Search_Action_SimpleButton);
+            this.layoutControl1.Controls.Add(this.Report_Action_SimpleButton);
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(2, 23);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.Root = this.layoutControlGroup1;
+            this.layoutControl1.Size = new System.Drawing.Size(1189, 500);
+            this.layoutControl1.TabIndex = 0;
+            this.layoutControl1.Text = "layoutControl1";
+            // 
+            // gridControl1
+            // 
+            this.gridControl1.Location = new System.Drawing.Point(12, 63);
+            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(1165, 401);
+            this.gridControl1.TabIndex = 19;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // gridView1
+            // 
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+			this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {this.<#=column.Name  #>_GridColumn });
+			<# 
+				}
+			#>
+            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.Name = "gridView1";
+
+			<#
+				int gridIndex = 0;
+				foreach(Column column in view.Columns)
+				{
+					column.ExtendedProperties.Refresh();
+					string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+			#>
+            this.<#=column.Name  #>_GridColumn.Caption = "<#=describe #>";
+            this.<#=column.Name  #>_GridColumn.FieldName = "<#=column.Name  #>";
+            this.<#=column.Name  #>_GridColumn.Name = "<#=column.Name  #>_GridColumn";
+            this.<#=column.Name  #>_GridColumn.Visible = true;
+            this.<#=column.Name  #>_GridColumn.VisibleIndex = <#=gridIndex++  #>;
+            <# 
+				}
+			#>
+
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= view.Columns.Count)
+					{
+						Column column = view.Columns[(i*columnNum+1)-1];
+						column.ExtendedProperties.Refresh();
+						string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+						int x = 0;
+						int y = i * 25;
+						int width = 294;
+						int height = 25;
+						int index = i*columnNum+1;
+						#><#=devHelper.
+InitControlStr(devHelper.GetControlTypeByColumnType(column.DataType.Name),column.Name,describe,x,y,width,height,index)
+						#><#
+					}
+					if((i*columnNum+2)<= view.Columns.Count)
+					{
+						Column column = view.Columns[(i*columnNum+2)-1];
+						column.ExtendedProperties.Refresh();
+						string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+						int x = 294;
+						int y = i * 25;
+						int width = 292;
+						int height = 25;
+						int index = i*columnNum+2;
+						#><#=devHelper.
+InitControlStr(devHelper.GetControlTypeByColumnType(column.DataType.Name),column.Name,describe,x,y,width,height,index)
+						#><#
+					}
+					else
+					{
+						int x = 294;
+						int y = i * 25;
+						int width = 292;
+						int height = 25;
+						int index = i*columnNum+2;
+						#><#=devHelper.
+InitControlStr(string.Empty,string.Empty,string.Empty,x,y,width,height,index)
+					#><#}
+					if((i*columnNum+3)<= view.Columns.Count)
+					{
+						Column column = view.Columns[(i*columnNum+3)-1];
+						column.ExtendedProperties.Refresh();
+						string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+						int x = 586;
+						int y = i * 25;
+						int width = 291;
+						int height = 25;
+						int index = i*columnNum+3;
+						#><#=devHelper.
+InitControlStr(devHelper.GetControlTypeByColumnType(column.DataType.Name),column.Name,describe,x,y,width,height,index)
+					#><#}
+					else
+					{
+						int x = 586;
+						int y = i * 25;
+						int width = 291;
+						int height = 25;
+						int index = i*columnNum+3;
+						#><#=devHelper.
+InitControlStr(string.Empty,string.Empty,string.Empty,x,y,width,height,index)
+					#><#}
+					if((i*columnNum+4)<= view.Columns.Count)
+					{
+						Column column = view.Columns[(i*columnNum+4)-1];
+						column.ExtendedProperties.Refresh();
+						string describe = column.ExtendedProperties["MS_Description"]==null?column.Name: column.ExtendedProperties["MS_Description"].Value.ToString();
+						int x = 877;
+						int y = i * 25;
+						int width = 292;
+						int height = 25;
+						int index = i*columnNum+4;
+						#><#=devHelper.
+InitControlStr(devHelper.GetControlTypeByColumnType(column.DataType.Name),column.Name,describe,x,y,width,height,index)
+					#><#}
+					else
+					{
+						int x = 877;
+						int y = i * 25;
+						int width = 292;
+						int height = 25;
+						int index = i*columnNum+4;
+						#><#=devHelper.
+InitControlStr(string.Empty,string.Empty,string.Empty,x,y,width,height,index)
+					#><#}
+				}
+			#>
+            // 
+            // Search_Action_SimpleButton
+            // 
+            this.Search_Action_SimpleButton.Name = "Search_Action_SimpleButton";
+            this.Search_Action_SimpleButton.StyleController = this.layoutControl1;
+            this.Search_Action_SimpleButton.TabIndex = <#= view.Columns.Count+1 #>;
+            this.Search_Action_SimpleButton.Text = "查找";
+			this.Search_Action_SimpleButton.Click += new System.EventHandler(this.Search_Action_SimpleButton_Click);
+            // 
+            // Report_Action_SimpleButton
+            // 
+            this.Report_Action_SimpleButton.Name = "Report_Action_SimpleButton";
+            this.Report_Action_SimpleButton.StyleController = this.layoutControl1;
+            this.Report_Action_SimpleButton.TabIndex = <#= view.Columns.Count+2 #>;
+            this.Report_Action_SimpleButton.Text = "打印";
+			this.Report_Action_SimpleButton.Click += new System.EventHandler(this.Report_Action_SimpleButton_Click);
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.CustomizationFormText = "layoutControlGroup1";
+            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup1.GroupBordersVisible = false;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem7,
+            this.layoutControlItem6,
+            this.layoutControlItem1,
+            this.Paging_LayoutControlItem,
+            this.emptySpaceItem2,
+			this.emptySpaceItem1});
+			
+			<# 
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= view.Columns.Count)
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.<#=view.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem});
+			<#
+					}
+					if((i*columnNum+2)<= view.Columns.Count)
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.<#=view.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem});
+			<#			
+					}
+					else
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem});
+			<#	
+					}
+					if((i*columnNum+3)<= view.Columns.Count)
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.<#=view.Columns[(i*columnNum+2)].Name  #>_LayoutControlItem});
+			<#				
+					}
+					else
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.NoControl<#=(i*columnNum+3).ToString()  #>_EmptySpaceItem});
+			<#	
+					}
+					if((i*columnNum+4)<= view.Columns.Count)
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.<#=view.Columns[(i*columnNum+3)].Name  #>_LayoutControlItem});
+			<#					
+					}
+					else
+					{
+			#>
+				this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {this.NoControl<#=(i*columnNum+4).ToString()  #>_EmptySpaceItem});
+			<#	
+					}
+				}
+			#>
+			
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup1.Name = "layoutControlGroup1";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1189, 500);
+            this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.layoutControlGroup1.Text = "layoutControlGroup1";
+            this.layoutControlGroup1.TextVisible = false;
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.Report_Action_SimpleButton;
+            this.layoutControlItem7.CustomizationFormText = "layoutControlItem7";
+            this.layoutControlItem7.Location = new System.Drawing.Point(586, <#= n*25 #>);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(291, 26);
+            this.layoutControlItem7.Text = "layoutControlItem7";
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem7.TextToControlDistance = 0;
+            this.layoutControlItem7.TextVisible = false;
+            // 
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.Control = this.Search_Action_SimpleButton;
+            this.layoutControlItem6.CustomizationFormText = "layoutControlItem6";
+            this.layoutControlItem6.Location = new System.Drawing.Point(293, <#= n*25 #>);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(293, 26);
+            this.layoutControlItem6.Text = "layoutControlItem6";
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextToControlDistance = 0;
+            this.layoutControlItem6.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.gridControl1;
+            this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, <#= n*25+26 #>);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(1169, 405);
+            this.layoutControlItem1.Text = "layoutControlItem1";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextToControlDistance = 0;
+            this.layoutControlItem1.TextVisible = false;
+			// 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
+            this.emptySpaceItem1.Location = new System.Drawing.Point(877, <#= n*25 #>);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(292, 26);
+            this.emptySpaceItem1.Text = "emptySpaceItem1";
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // paging_XtraUserControl1
+            // 
+            this.paging_XtraUserControl1.Name = "paging_XtraUserControl1";
+            this.paging_XtraUserControl1.TabIndex = 20;
+            // 
+            // Paging_LayoutControlItem
+            // 
+            this.Paging_LayoutControlItem.Control = this.paging_XtraUserControl1;
+            this.Paging_LayoutControlItem.CustomizationFormText = "Paging_LayoutControlItem";
+            this.Paging_LayoutControlItem.Location = new System.Drawing.Point(0, <#= n*25+26+405 #>);
+            this.Paging_LayoutControlItem.Name = "Paging_LayoutControlItem";
+            this.Paging_LayoutControlItem.Size = new System.Drawing.Size(1169, 24);
+            this.Paging_LayoutControlItem.Text = "Paging_LayoutControlItem";
+            this.Paging_LayoutControlItem.TextSize = new System.Drawing.Size(0, 0);
+            this.Paging_LayoutControlItem.TextToControlDistance = 0;
+            this.Paging_LayoutControlItem.TextVisible = false;
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, <#= n*25 #>);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(293, 26);
+            this.emptySpaceItem2.Text = "emptySpaceItem2";
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // <#=view.Name + "_Report_XtraUserControl"  #>
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupControl1);
+            this.Name = "<#=view.Name + "_Report_XtraUserControl"  #>";
+            this.Size = new System.Drawing.Size(1193, 525);
+			this.Load += new System.EventHandler(this.<#=view.Name#>_Report_XtraUserControl_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+			
+			<# 
+				//var n = view.Columns.Count/4+ view.Columns.Count%4>0?1:0;
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= view.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem)).EndInit();
+			<#
+					}
+					if((i*columnNum+2)<= view.Columns.Count)
+					{
+			#>
+				 ((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem)).EndInit();
+			<#			
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem)).EndInit();
+			<#	
+					}
+					if((i*columnNum+3)<= view.Columns.Count)
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+2)].Name  #>_LayoutControlItem)).EndInit();
+			<#				
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+3).ToString()  #>_EmptySpaceItem)).EndInit();
+			<#	
+					}
+					if((i*columnNum+4)<= view.Columns.Count)
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.<#=view.Columns[(i*columnNum+3)].Name  #>_LayoutControlItem)).EndInit();
+			<#					
+					}
+					else
+					{
+			#>
+				((System.ComponentModel.ISupportInitialize)(this.NoControl<#=(i*columnNum+4).ToString()  #>_EmptySpaceItem)).EndInit();
+			<#	
+					}
+				}
+			#>
+			
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Paging_LayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+			<#
+				foreach(Column column in view.Columns)
+				{
+			#>
+			((System.ComponentModel.ISupportInitialize)( this.<#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>.Properties)).EndInit();
+            <# 
+				}
+			#>
+			
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+		
+		private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraEditors.SimpleButton Search_Action_SimpleButton;
+        private DevExpress.XtraEditors.SimpleButton Report_Action_SimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+		
+		<# 
+				//var n = view.Columns.Count/4+ view.Columns.Count%4>0?1:0;
+				for(int i=0;i<n;i++)
+				{
+					if((i*columnNum+1)<= view.Columns.Count)
+					{
+			#>
+		private DevExpress.XtraLayout.LayoutControlItem <#=view.Columns[(i*columnNum+0)].Name  #>_LayoutControlItem;
+			<#
+					}
+					if((i*columnNum+2)<= view.Columns.Count)
+					{
+			#>
+		private DevExpress.XtraLayout.LayoutControlItem <#=view.Columns[(i*columnNum+1)].Name  #>_LayoutControlItem;
+			<#			
+					}
+					else
+					{
+			#>
+		private DevExpress.XtraLayout.EmptySpaceItem NoControl<#=(i*columnNum+2).ToString()  #>_EmptySpaceItem;
+			<#	
+					}
+					if((i*columnNum+3)<= view.Columns.Count)
+					{
+			#>
+		private DevExpress.XtraLayout.LayoutControlItem <#=view.Columns[(i*columnNum+2)].Name  #>_LayoutControlItem;
+			<#				
+					}
+					else
+					{
+			#>
+		private DevExpress.XtraLayout.EmptySpaceItem NoControl<#=(i*columnNum+3).ToString()  #>_EmptySpaceItem;
+			<#	
+					}
+					if((i*columnNum+4)<= view.Columns.Count)
+					{
+			#>
+		private DevExpress.XtraLayout.LayoutControlItem	<#=view.Columns[(i*columnNum+3)].Name  #>_LayoutControlItem;
+			<#					
+					}
+					else
+					{
+			#>
+		private DevExpress.XtraLayout.EmptySpaceItem NoControl<#=(i*columnNum+4).ToString()  #>_EmptySpaceItem;
+			<#	
+					}
+				}
+			#>
+		
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private UserControls.Paging_XtraUserControl paging_XtraUserControl1;
+        private DevExpress.XtraLayout.LayoutControlItem Paging_LayoutControlItem;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+		<#
+			foreach(Column column in view.Columns)
+			{
+		#>
+		private DevExpress.XtraEditors.<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #> <#=column.Name  #>_<#=devHelper.GetControlTypeByColumnType(column.DataType.Name)  #>;
+        <# 
+			}
+		#>
+		
+		<#
+			foreach(Column column in view.Columns)
+			{
+		#>
+		private DevExpress.XtraGrid.Columns.GridColumn <#=column.Name  #>_GridColumn;
+        <# 
+			}
+		#>
+		
+	}
+}
+	<# manager.EndBlock(); #>
+	#endregion
+	
+	#region 资源文件
+	<# manager.StartNewFile(view.Name +"_Report_XtraUserControl.resx"); #>
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>
+	<# manager.EndBlock(); #>
+	#endregion
+	
+#endregion
+
+<# 
+}
+#>
+
+<# manager.Process(true); #>

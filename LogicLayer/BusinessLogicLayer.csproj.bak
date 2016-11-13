@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ADD83146-4822-4665-9531-0E44BFB63380}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BusinessLogicLayer</RootNamespace>
+    <AssemblyName>BusinessLogicLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Localization.v10.2">
+      <HintPath>..\UILogic\Lib\DevExpress.Localization.v10.2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ado\MyWorkerAdoBLL.cs" />
+    <Compile Include="Ado\OperatingLog_ViewAdoBLL.cs" />
+    <Compile Include="Ado\OperationInZoneLog_ViewAdoBLL.cs" />
+    <Compile Include="Ado\OverstaffDownHole_ViewAdoBLL.cs" />
+    <Compile Include="Ado\OverstaffInZone_ViewAdoBLL.cs" />
+    <Compile Include="Ado\PushButtonStateEvent_ViewAdoBLL.cs" />
+    <Compile Include="Ado\RestCardAdoBLL.cs" />
+    <Compile Include="Ado\TeamViewAdoBLL.cs" />
+    <Compile Include="Ado\TimeoutInZone_ViewAdoBLL.cs" />
+    <Compile Include="Ado\TimeoutWorkerDownHole_ViewAdoBLL.cs" />
+    <Compile Include="Ado\View_1AdoBLL.cs" />
+    <Compile Include="Ado\View_DepartMentIDAdoBLL.cs" />
+    <Compile Include="Ado\View_JobtitleIdAdoBLL.cs" />
+    <Compile Include="Ado\View_UpdateWorkerTypeAdoBLL.cs" />
+    <Compile Include="Ado\Worker_teamAdoBLL.cs" />
+    <Compile Include="Ado\Worker_TransferAdoBLL.cs" />
+    <Compile Include="Ado\xAdoBLL.cs" />
+    <Compile Include="Ado\yAdoBLL.cs" />
+    <Compile Include="Entity\BaseStationEntityBLL.cs" />
+    <Compile Include="Entity\BaseStationLogEntityBLL.cs" />
+    <Compile Include="Entity\BaseStationPathLineEntityBLL.cs" />
+    <Compile Include="Entity\CardEntityBLL.cs" />
+    <Compile Include="Entity\CardtrackEntityBLL.cs" />
+    <Compile Include="Entity\CheckingInLogEntityBLL.cs" />
+    <Compile Include="Entity\DataPacketEntityBLL.cs" />
+    <Compile Include="Entity\DataRadioEntityBLL.cs" />
+    <Compile Include="Entity\DataRadioLogEntityBLL.cs" />
+    <Compile Include="Entity\DepartmentEntityBLL.cs" />
+    <Compile Include="Entity\EventRecordEntityBLL.cs" />
+    <Compile Include="Entity\JobShiftEntityBLL.cs" />
+    <Compile Include="Entity\JobTitleEntityBLL.cs" />
+    <Compile Include="Entity\ManagerEntityBLL.cs" />
+    <Compile Include="Entity\OperatingLogEntityBLL.cs" />
+    <Compile Include="Entity\OperationInZoneLogEntityBLL.cs" />
+    <Compile Include="Entity\OperationLogEntityBLL.cs" />
+    <Compile Include="Entity\OverstaffDownHoleEntityBLL.cs" />
+    <Compile Include="Entity\OverstaffInZoneEntityBLL.cs" />
+    <Compile Include="Entity\PushButtonStateEventEntityBLL.cs" />
+    <Compile Include="Entity\ReceivedFrameEntityBLL.cs" />
+    <Compile Include="Entity\SysConfigEntityBLL.cs" />
+    <Compile Include="Entity\SystemLogEntityBLL.cs" />
+    <Compile Include="Entity\TeamEntityBLL.cs" />
+    <Compile Include="Entity\TimeoutInZoneEntityBLL.cs" />
+    <Compile Include="Entity\TimeoutWorkerDownHoleEntityBLL.cs" />
+    <Compile Include="Entity\WorkAttendanceEntityBLL.cs" />
+    <Compile Include="Entity\WorkerEntityBLL.cs" />
+    <Compile Include="Entity\WorkShiftEntityBLL.cs" />
+    <Compile Include="Entity\WorkShiftTypeEntityBLL.cs" />
+    <Compile Include="Entity\ZoneAndBaseStationLinkEntityBLL.cs" />
+    <Compile Include="Entity\ZoneEntityBLL.cs" />
+    <Compile Include="Entity\ZoneTypeEntityBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLogic\DataAccessLayer.csproj">
+      <Project>{D751DE2A-B34C-4B23-BD24-28BF37B9AA3D}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModelLayer\DomainModelLayer.csproj">
+      <Project>{F524E4D5-41F3-4CF6-97D2-D63A512520C8}</Project>
+      <Name>DomainModelLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

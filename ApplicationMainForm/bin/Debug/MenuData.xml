@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MenuTree IsClear="False">
+  <MenuGroup Name="FormEditor_NavBarGroup" Expanded="True" Describe="数据维护">
+    <MenuItem IconPath="" Name="Menu_T_Batch" Describe="Batch" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Batch_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+    <MenuItem IconPath="" Name="Menu_T_Users" Describe="Users" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.List" ClassName="Users_List_XtraUserControl"  IsShowing ="True"></MenuItem>
+  </MenuGroup>
+  <MenuGroup Name="ReportViewer_NavBarGroup" Describe="报表查询">
+    <MenuItem IconPath="" Name="Menu_V_ExecutionLog" Describe="ExecutionLog" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExecutionLog_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+    <MenuItem IconPath="" Name="Menu_V_ExecutionLog2" Describe="ExecutionLog2" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExecutionLog2_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+    <MenuItem IconPath="" Name="Menu_V_ExecutionLog3" Describe="ExecutionLog3" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExecutionLog3_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+    <MenuItem IconPath="" Name="Menu_V_ExtendedDataSets" Describe="ExtendedDataSets" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExtendedDataSets_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+    <MenuItem IconPath="" Name="Menu_V_ExtendedDataSources" Describe="ExtendedDataSources" Type="UserControl" NameSpace="ApplicationMainForm.UserControls.Report" ClassName="ExtendedDataSources_Report_XtraUserControl"  IsShowing ="True"></MenuItem>
+  </MenuGroup>
+</MenuTree>

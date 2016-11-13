@@ -1,0 +1,15 @@
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\bin\Debug\Infrastructure.dll
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\bin\Debug\Infrastructure.pdb
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\ResolveAssemblyReference.cache
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.dll
+F:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.pdb
+K:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\bin\Debug\Infrastructure.dll
+K:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\bin\Debug\Infrastructure.pdb
+K:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+K:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.dll
+K:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.pdb
+D:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\bin\Debug\Infrastructure.dll
+D:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\bin\Debug\Infrastructure.pdb
+D:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+D:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.dll
+D:\Code\MyProject\MyWinFormProject\ApplicationMainForm\Infrastructure\obj\Debug\Infrastructure.pdb

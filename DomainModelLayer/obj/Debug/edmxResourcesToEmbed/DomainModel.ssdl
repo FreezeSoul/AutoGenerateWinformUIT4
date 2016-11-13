@@ -1,0 +1,959 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MWTSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityType Name="ActiveSubscriptions">
+    <Key>
+      <PropertyRef Name="ActiveID" />
+    </Key>
+    <Property Name="ActiveID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SubscriptionID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TotalNotifications" Type="int" />
+    <Property Name="TotalSuccesses" Type="int" Nullable="false" />
+    <Property Name="TotalFailures" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportServer.dbo.Batch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Batch">
+    <Key>
+      <PropertyRef Name="BatchID" />
+      <PropertyRef Name="AddedOn" />
+      <PropertyRef Name="Action" />
+    </Key>
+    <Property Name="BatchID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AddedOn" Type="datetime" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="32" Nullable="false" />
+    <Property Name="Item" Type="nvarchar" MaxLength="425" />
+    <Property Name="Parent" Type="nvarchar" MaxLength="425" />
+    <Property Name="Param" Type="nvarchar" MaxLength="425" />
+    <Property Name="BoolParam" Type="bit" />
+    <Property Name="Content" Type="image" />
+    <Property Name="Properties" Type="ntext" />
+  </EntityType>
+  <EntityType Name="CachePolicy">
+    <Key>
+      <PropertyRef Name="CachePolicyID" />
+    </Key>
+    <Property Name="CachePolicyID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ExpirationFlags" Type="int" Nullable="false" />
+    <Property Name="CacheExpiration" Type="int" />
+  </EntityType>
+  <EntityType Name="Catalog">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Path" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="ParentID" Type="uniqueidentifier" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Content" Type="image" />
+    <Property Name="Intermediate" Type="uniqueidentifier" />
+    <Property Name="SnapshotDataID" Type="uniqueidentifier" />
+    <Property Name="LinkSourceID" Type="uniqueidentifier" />
+    <Property Name="Property" Type="ntext" />
+    <Property Name="Description" Type="nvarchar" MaxLength="512" />
+    <Property Name="Hidden" Type="bit" />
+    <Property Name="CreatedByID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedByID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="MimeType" Type="nvarchar" MaxLength="260" />
+    <Property Name="SnapshotLimit" Type="int" />
+    <Property Name="Parameter" Type="ntext" />
+    <Property Name="PolicyID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PolicyRoot" Type="bit" Nullable="false" />
+    <Property Name="ExecutionFlag" Type="int" Nullable="false" />
+    <Property Name="ExecutionTime" Type="datetime" />
+    <Property Name="SubType" Type="nvarchar" MaxLength="128" />
+    <Property Name="ComponentID" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="ChunkData">
+    <Key>
+      <PropertyRef Name="ChunkID" />
+    </Key>
+    <Property Name="ChunkID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SnapshotDataID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ChunkFlags" Type="tinyint" />
+    <Property Name="ChunkName" Type="nvarchar" MaxLength="260" />
+    <Property Name="ChunkType" Type="int" />
+    <Property Name="Version" Type="smallint" />
+    <Property Name="MimeType" Type="nvarchar" MaxLength="260" />
+    <Property Name="Content" Type="image" />
+  </EntityType>
+  <EntityType Name="ChunkSegmentMapping">
+    <Key>
+      <PropertyRef Name="ChunkId" />
+      <PropertyRef Name="SegmentId" />
+    </Key>
+    <Property Name="ChunkId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SegmentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="StartByte" Type="bigint" Nullable="false" />
+    <Property Name="LogicalByteCount" Type="int" Nullable="false" />
+    <Property Name="ActualByteCount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConfigurationInfo">
+    <Key>
+      <PropertyRef Name="ConfigInfoID" />
+    </Key>
+    <Property Name="ConfigInfoID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="Value" Type="ntext" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataSets">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ItemID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LinkID" Type="uniqueidentifier" />
+    <Property Name="Name" Type="nvarchar" MaxLength="260" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataSource">
+    <Key>
+      <PropertyRef Name="DSID" />
+    </Key>
+    <Property Name="DSID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ItemID" Type="uniqueidentifier" />
+    <Property Name="SubscriptionID" Type="uniqueidentifier" />
+    <Property Name="Name" Type="nvarchar" MaxLength="260" />
+    <Property Name="Extension" Type="nvarchar" MaxLength="260" />
+    <Property Name="Link" Type="uniqueidentifier" />
+    <Property Name="CredentialRetrieval" Type="int" />
+    <Property Name="Prompt" Type="ntext" />
+    <Property Name="ConnectionString" Type="image" />
+    <Property Name="OriginalConnectionString" Type="image" />
+    <Property Name="OriginalConnectStringExpressionBased" Type="bit" />
+    <Property Name="UserName" Type="image" />
+    <Property Name="Password" Type="image" />
+    <Property Name="Flags" Type="int" />
+    <Property Name="Version" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DBUpgradeHistory">
+    <Key>
+      <PropertyRef Name="UpgradeID" />
+    </Key>
+    <Property Name="UpgradeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DbVersion" Type="nvarchar" MaxLength="25" />
+    <Property Name="User" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EventType" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="EventData" Type="nvarchar" MaxLength="260" />
+    <Property Name="TimeEntered" Type="datetime" Nullable="false" />
+    <Property Name="ProcessStart" Type="datetime" />
+    <Property Name="ProcessHeartbeat" Type="datetime" />
+    <Property Name="BatchID" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="ExecutionLogStorage">
+    <Key>
+      <PropertyRef Name="LogEntryId" />
+    </Key>
+    <Property Name="LogEntryId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstanceName" Type="nvarchar" MaxLength="38" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="260" />
+    <Property Name="ExecutionId" Type="nvarchar" MaxLength="64" />
+    <Property Name="RequestType" Type="tinyint" Nullable="false" />
+    <Property Name="Format" Type="nvarchar" MaxLength="26" />
+    <Property Name="Parameters" Type="ntext" />
+    <Property Name="ReportAction" Type="tinyint" />
+    <Property Name="TimeStart" Type="datetime" Nullable="false" />
+    <Property Name="TimeEnd" Type="datetime" Nullable="false" />
+    <Property Name="TimeDataRetrieval" Type="int" Nullable="false" />
+    <Property Name="TimeProcessing" Type="int" Nullable="false" />
+    <Property Name="TimeRendering" Type="int" Nullable="false" />
+    <Property Name="Source" Type="tinyint" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="ByteCount" Type="bigint" Nullable="false" />
+    <Property Name="RowCount" Type="bigint" Nullable="false" />
+    <Property Name="AdditionalInfo" Type="xml" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="HistoryID" />
+    </Key>
+    <Property Name="HistoryID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SnapshotDataID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SnapshotDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Keys">
+    <Key>
+      <PropertyRef Name="InstallationID" />
+      <PropertyRef Name="Client" />
+    </Key>
+    <Property Name="MachineName" Type="nvarchar" MaxLength="256" />
+    <Property Name="InstallationID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="InstanceName" Type="nvarchar" MaxLength="32" />
+    <Property Name="Client" Type="int" Nullable="false" />
+    <Property Name="PublicKey" Type="image" />
+    <Property Name="SymmetricKey" Type="image" />
+  </EntityType>
+  <EntityType Name="ModelDrill">
+    <Key>
+      <PropertyRef Name="ModelDrillID" />
+    </Key>
+    <Property Name="ModelDrillID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModelID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModelItemID" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="Type" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ModelItemPolicy">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CatalogItemID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModelItemID" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="PolicyID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportServer.dbo.ModelPerspective' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ModelPerspective">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ModelID" />
+      <PropertyRef Name="PerspectiveID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModelID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PerspectiveID" Type="ntext" Nullable="false" />
+    <Property Name="PerspectiveName" Type="ntext" />
+    <Property Name="PerspectiveDescription" Type="ntext" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SubscriptionID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ActivationID" Type="uniqueidentifier" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SnapShotDate" Type="datetime" />
+    <Property Name="ExtensionSettings" Type="ntext" Nullable="false" />
+    <Property Name="Locale" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Parameters" Type="ntext" />
+    <Property Name="ProcessStart" Type="datetime" />
+    <Property Name="NotificationEntered" Type="datetime" Nullable="false" />
+    <Property Name="ProcessAfter" Type="datetime" />
+    <Property Name="Attempt" Type="int" />
+    <Property Name="SubscriptionLastRunTime" Type="datetime" Nullable="false" />
+    <Property Name="DeliveryExtension" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="SubscriptionOwnerID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsDataDriven" Type="bit" Nullable="false" />
+    <Property Name="BatchID" Type="uniqueidentifier" />
+    <Property Name="ProcessHeartbeat" Type="datetime" />
+    <Property Name="Version" Type="int" Nullable="false" />
+    <Property Name="ReportZone" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Policies">
+    <Key>
+      <PropertyRef Name="PolicyID" />
+    </Key>
+    <Property Name="PolicyID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PolicyFlag" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="PolicyUserRole">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PolicyID" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ReportServer.dbo.ReportSchedule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReportSchedule">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+      <PropertyRef Name="ReportID" />
+      <PropertyRef Name="ReportAction" />
+    </Key>
+    <Property Name="ScheduleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SubscriptionID" Type="uniqueidentifier" />
+    <Property Name="ReportAction" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="512" />
+    <Property Name="TaskMask" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="RoleFlags" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RunningJobs">
+    <Key>
+      <PropertyRef Name="JobID" />
+    </Key>
+    <Property Name="JobID" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="ComputerName" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="RequestName" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="RequestPath" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Description" Type="ntext" />
+    <Property Name="Timeout" Type="int" Nullable="false" />
+    <Property Name="JobAction" Type="smallint" Nullable="false" />
+    <Property Name="JobType" Type="smallint" Nullable="false" />
+    <Property Name="JobStatus" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+    </Key>
+    <Property Name="ScheduleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="Flags" Type="int" Nullable="false" />
+    <Property Name="NextRunTime" Type="datetime" />
+    <Property Name="LastRunTime" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="RecurrenceType" Type="int" />
+    <Property Name="MinutesInterval" Type="int" />
+    <Property Name="DaysInterval" Type="int" />
+    <Property Name="WeeksInterval" Type="int" />
+    <Property Name="DaysOfWeek" Type="int" />
+    <Property Name="DaysOfMonth" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="MonthlyWeek" Type="int" />
+    <Property Name="State" Type="int" />
+    <Property Name="LastRunStatus" Type="nvarchar" MaxLength="260" />
+    <Property Name="ScheduledRunTimeout" Type="int" />
+    <Property Name="CreatedById" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EventType" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="EventData" Type="nvarchar" MaxLength="260" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="ConsistancyCheck" Type="datetime" />
+    <Property Name="Path" Type="nvarchar" MaxLength="260" />
+  </EntityType>
+  <EntityType Name="SecData">
+    <Key>
+      <PropertyRef Name="SecDataID" />
+    </Key>
+    <Property Name="SecDataID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PolicyID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AuthType" Type="int" Nullable="false" />
+    <Property Name="XmlDescription" Type="ntext" Nullable="false" />
+    <Property Name="NtSecDescPrimary" Type="image" Nullable="false" />
+    <Property Name="NtSecDescSecondary" Type="ntext" />
+  </EntityType>
+  <EntityType Name="Segment">
+    <Key>
+      <PropertyRef Name="SegmentId" />
+    </Key>
+    <Property Name="SegmentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Content" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="SegmentedChunk">
+    <Key>
+      <PropertyRef Name="SegmentedChunkId" />
+    </Key>
+    <Property Name="ChunkId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SnapshotDataId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ChunkFlags" Type="tinyint" Nullable="false" />
+    <Property Name="ChunkName" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="ChunkType" Type="int" Nullable="false" />
+    <Property Name="Version" Type="smallint" Nullable="false" />
+    <Property Name="MimeType" Type="nvarchar" MaxLength="260" />
+    <Property Name="SegmentedChunkId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServerParametersInstance">
+    <Key>
+      <PropertyRef Name="ServerParametersID" />
+    </Key>
+    <Property Name="ServerParametersID" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="ParentID" Type="nvarchar" MaxLength="32" />
+    <Property Name="Path" Type="nvarchar" MaxLength="425" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="Timeout" Type="int" Nullable="false" />
+    <Property Name="Expiration" Type="datetime" Nullable="false" />
+    <Property Name="ParametersValues" Type="image" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServerUpgradeHistory">
+    <Key>
+      <PropertyRef Name="UpgradeID" />
+    </Key>
+    <Property Name="UpgradeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServerVersion" Type="nvarchar" MaxLength="25" />
+    <Property Name="User" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SnapshotData">
+    <Key>
+      <PropertyRef Name="SnapshotDataID" />
+    </Key>
+    <Property Name="SnapshotDataID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ParamsHash" Type="int" />
+    <Property Name="QueryParams" Type="ntext" />
+    <Property Name="EffectiveParams" Type="ntext" />
+    <Property Name="Description" Type="nvarchar" MaxLength="512" />
+    <Property Name="DependsOnUser" Type="bit" />
+    <Property Name="PermanentRefcount" Type="int" Nullable="false" />
+    <Property Name="TransientRefcount" Type="int" Nullable="false" />
+    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+    <Property Name="PageCount" Type="int" />
+    <Property Name="HasDocMap" Type="bit" />
+    <Property Name="PaginationMode" Type="smallint" />
+    <Property Name="ProcessingFlags" Type="int" />
+  </EntityType>
+  <EntityType Name="Subscriptions">
+    <Key>
+      <PropertyRef Name="SubscriptionID" />
+    </Key>
+    <Property Name="SubscriptionID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OwnerID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Report_OID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Locale" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="InactiveFlags" Type="int" Nullable="false" />
+    <Property Name="ExtensionSettings" Type="ntext" />
+    <Property Name="ModifiedByID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="512" />
+    <Property Name="LastStatus" Type="nvarchar" MaxLength="260" />
+    <Property Name="EventType" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="MatchData" Type="ntext" />
+    <Property Name="LastRunTime" Type="datetime" />
+    <Property Name="Parameters" Type="ntext" />
+    <Property Name="DataSettings" Type="ntext" />
+    <Property Name="DeliveryExtension" Type="nvarchar" MaxLength="260" />
+    <Property Name="Version" Type="int" Nullable="false" />
+    <Property Name="ReportZone" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubscriptionsBeingDeleted">
+    <Key>
+      <PropertyRef Name="SubscriptionID" />
+    </Key>
+    <Property Name="SubscriptionID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UpgradeInfo">
+    <Key>
+      <PropertyRef Name="Item" />
+    </Key>
+    <Property Name="Item" Type="nvarchar" MaxLength="260" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="512" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Sid" Type="varbinary" MaxLength="85" />
+    <Property Name="UserType" Type="int" Nullable="false" />
+    <Property Name="AuthType" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="260" />
+  </EntityType>
+  <Association Name="FK_ActiveSubscriptions_Subscriptions">
+    <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ActiveSubscriptions" Type="Self.ActiveSubscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Principal>
+      <Dependent Role="ActiveSubscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CachePolicyReportID">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CachePolicy" Type="Self.CachePolicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="CachePolicy">
+        <PropertyRef Name="ReportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_CreatedByID">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Catalog">
+        <PropertyRef Name="CreatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_LinkSourceID">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="0..1" />
+    <End Role="Catalog1" Type="Self.Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Catalog1">
+        <PropertyRef Name="LinkSourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_ModifiedByID">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Catalog">
+        <PropertyRef Name="ModifiedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_ParentID">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="0..1" />
+    <End Role="Catalog1" Type="Self.Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Catalog1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Catalog_Policy">
+    <End Role="Policies" Type="Self.Policies" Multiplicity="1" />
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="Catalog">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataSetItemID">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1" />
+    <End Role="DataSets" Type="Self.DataSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="DataSets">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataSetLinkID">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="0..1" />
+    <End Role="DataSets" Type="Self.DataSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="DataSets">
+        <PropertyRef Name="LinkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DataSourceItemID">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="0..1" />
+    <End Role="DataSource" Type="Self.DataSource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="DataSource">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelDrillModel">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ModelDrill" Type="Self.ModelDrill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ModelDrill">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelDrillReport">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1" />
+    <End Role="ModelDrill" Type="Self.ModelDrill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ModelDrill">
+        <PropertyRef Name="ReportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelPerspectiveModel">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ModelPerspective" Type="Self.ModelPerspective" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ModelPerspective">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notifications_Subscriptions">
+    <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="SubscriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PoliciesPolicyID">
+    <End Role="Policies" Type="Self.Policies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ModelItemPolicy" Type="Self.ModelItemPolicy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="ModelItemPolicy">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolicyUserRole_Policy">
+    <End Role="Policies" Type="Self.Policies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PolicyUserRole" Type="Self.PolicyUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="PolicyUserRole">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolicyUserRole_Role">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="PolicyUserRole" Type="Self.PolicyUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="PolicyUserRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolicyUserRole_User">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="PolicyUserRole" Type="Self.PolicyUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="PolicyUserRole">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportSchedule_Report">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ReportSchedule" Type="Self.ReportSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="ReportSchedule">
+        <PropertyRef Name="ReportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportSchedule_Schedule">
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ReportSchedule" Type="Self.ReportSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleID" />
+      </Principal>
+      <Dependent Role="ReportSchedule">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportSchedule_Subscriptions">
+    <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="0..1" />
+    <End Role="ReportSchedule" Type="Self.ReportSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriptions">
+        <PropertyRef Name="SubscriptionID" />
+      </Principal>
+      <Dependent Role="ReportSchedule">
+        <PropertyRef Name="SubscriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="CreatedById" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SecDataPolicyID">
+    <End Role="Policies" Type="Self.Policies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SecData" Type="Self.SecData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Policies">
+        <PropertyRef Name="PolicyID" />
+      </Principal>
+      <Dependent Role="SecData">
+        <PropertyRef Name="PolicyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscriptions_Catalog">
+    <End Role="Catalog" Type="Self.Catalog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalog">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Subscriptions">
+        <PropertyRef Name="Report_OID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscriptions_ModifiedBy">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Subscriptions">
+        <PropertyRef Name="ModifiedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subscriptions_Owner">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Subscriptions">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MWTSModelStoreContainer">
+    <EntitySet Name="ActiveSubscriptions" EntityType="Self.ActiveSubscriptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CachePolicy" EntityType="Self.CachePolicy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Catalog" EntityType="Self.Catalog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChunkData" EntityType="Self.ChunkData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChunkSegmentMapping" EntityType="Self.ChunkSegmentMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConfigurationInfo" EntityType="Self.ConfigurationInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DataSets" EntityType="Self.DataSets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DataSource" EntityType="Self.DataSource" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DBUpgradeHistory" EntityType="Self.DBUpgradeHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExecutionLogStorage" EntityType="Self.ExecutionLogStorage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModelDrill" EntityType="Self.ModelDrill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModelItemPolicy" EntityType="Self.ModelItemPolicy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Policies" EntityType="Self.Policies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PolicyUserRole" EntityType="Self.PolicyUserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RunningJobs" EntityType="Self.RunningJobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SecData" EntityType="Self.SecData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Segment" EntityType="Self.Segment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SegmentedChunk" EntityType="Self.SegmentedChunk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServerParametersInstance" EntityType="Self.ServerParametersInstance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServerUpgradeHistory" EntityType="Self.ServerUpgradeHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SnapshotData" EntityType="Self.SnapshotData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subscriptions" EntityType="Self.Subscriptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubscriptionsBeingDeleted" EntityType="Self.SubscriptionsBeingDeleted" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UpgradeInfo" EntityType="Self.UpgradeInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Batch" EntityType="Self.Batch" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Batch].[BatchID] AS [BatchID], 
+[Batch].[AddedOn] AS [AddedOn], 
+[Batch].[Action] AS [Action], 
+[Batch].[Item] AS [Item], 
+[Batch].[Parent] AS [Parent], 
+[Batch].[Param] AS [Param], 
+[Batch].[BoolParam] AS [BoolParam], 
+[Batch].[Content] AS [Content], 
+[Batch].[Properties] AS [Properties]
+FROM [dbo].[Batch] AS [Batch]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ModelPerspective" EntityType="Self.ModelPerspective" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ModelPerspective].[ID] AS [ID], 
+[ModelPerspective].[ModelID] AS [ModelID], 
+[ModelPerspective].[PerspectiveID] AS [PerspectiveID], 
+[ModelPerspective].[PerspectiveName] AS [PerspectiveName], 
+[ModelPerspective].[PerspectiveDescription] AS [PerspectiveDescription]
+FROM [dbo].[ModelPerspective] AS [ModelPerspective]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ReportSchedule" EntityType="Self.ReportSchedule" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ReportSchedule].[ScheduleID] AS [ScheduleID], 
+[ReportSchedule].[ReportID] AS [ReportID], 
+[ReportSchedule].[SubscriptionID] AS [SubscriptionID], 
+[ReportSchedule].[ReportAction] AS [ReportAction]
+FROM [dbo].[ReportSchedule] AS [ReportSchedule]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_ActiveSubscriptions_Subscriptions" Association="Self.FK_ActiveSubscriptions_Subscriptions">
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+      <End Role="ActiveSubscriptions" EntitySet="ActiveSubscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CachePolicyReportID" Association="Self.FK_CachePolicyReportID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="CachePolicy" EntitySet="CachePolicy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_CreatedByID" Association="Self.FK_Catalog_CreatedByID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Catalog" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_LinkSourceID" Association="Self.FK_Catalog_LinkSourceID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="Catalog1" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_ModifiedByID" Association="Self.FK_Catalog_ModifiedByID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Catalog" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_ParentID" Association="Self.FK_Catalog_ParentID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="Catalog1" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Catalog_Policy" Association="Self.FK_Catalog_Policy">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="Catalog" EntitySet="Catalog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataSetItemID" Association="Self.FK_DataSetItemID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="DataSets" EntitySet="DataSets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataSetLinkID" Association="Self.FK_DataSetLinkID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="DataSets" EntitySet="DataSets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DataSourceItemID" Association="Self.FK_DataSourceItemID">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="DataSource" EntitySet="DataSource" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelDrillModel" Association="Self.FK_ModelDrillModel">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ModelDrill" EntitySet="ModelDrill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelDrillReport" Association="Self.FK_ModelDrillReport">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ModelDrill" EntitySet="ModelDrill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelPerspectiveModel" Association="Self.FK_ModelPerspectiveModel">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ModelPerspective" EntitySet="ModelPerspective" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notifications_Subscriptions" Association="Self.FK_Notifications_Subscriptions">
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+      <End Role="Notifications" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PoliciesPolicyID" Association="Self.FK_PoliciesPolicyID">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="ModelItemPolicy" EntitySet="ModelItemPolicy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolicyUserRole_Policy" Association="Self.FK_PolicyUserRole_Policy">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="PolicyUserRole" EntitySet="PolicyUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolicyUserRole_Role" Association="Self.FK_PolicyUserRole_Role">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="PolicyUserRole" EntitySet="PolicyUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolicyUserRole_User" Association="Self.FK_PolicyUserRole_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PolicyUserRole" EntitySet="PolicyUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportSchedule_Report" Association="Self.FK_ReportSchedule_Report">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="ReportSchedule" EntitySet="ReportSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportSchedule_Schedule" Association="Self.FK_ReportSchedule_Schedule">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="ReportSchedule" EntitySet="ReportSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportSchedule_Subscriptions" Association="Self.FK_ReportSchedule_Subscriptions">
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+      <End Role="ReportSchedule" EntitySet="ReportSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Users" Association="Self.FK_Schedule_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SecDataPolicyID" Association="Self.FK_SecDataPolicyID">
+      <End Role="Policies" EntitySet="Policies" />
+      <End Role="SecData" EntitySet="SecData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscriptions_Catalog" Association="Self.FK_Subscriptions_Catalog">
+      <End Role="Catalog" EntitySet="Catalog" />
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscriptions_ModifiedBy" Association="Self.FK_Subscriptions_ModifiedBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subscriptions_Owner" Association="Self.FK_Subscriptions_Owner">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Subscriptions" EntitySet="Subscriptions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

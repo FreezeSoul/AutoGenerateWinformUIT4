@@ -1,0 +1,718 @@
+﻿<#+ 
+class DevHelper {
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="columnType"></param>
+	/// <param name="flag">是否匹配一个默认控件</param>
+	/// <returns></returns>
+	public string GetControlTypeByColumnType(string columnType,bool flag=true)
+	{				
+		string strControlType = flag?"TextEdit":string.Empty;
+		switch("SqlDataType." + columnType)
+		{
+   			case "SqlDataType.none":
+                break;
+            case "SqlDataType.bigint":
+				strControlType = "CalcEdit";//SpinEdit
+                break;
+            case "SqlDataType.binary":
+                break;
+            case "SqlDataType.bit":
+				strControlType = "ComboBoxEdit";//CheckEdit
+                break;
+            case "SqlDataType.char":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.datetime":
+				strControlType = "DateEdit";
+                break;
+            case "SqlDataType.decimal":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.float":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.image":
+				strControlType = "PictureEdit";
+                break;
+            case "SqlDataType.int":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.money":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.nchar":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.ntext":
+				strControlType = "MemoEdit";
+                break;
+            case "SqlDataType.nvarchar":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.nvarcharmax":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.Real":
+                break;
+            case "SqlDataType.smalldatetime":
+				strControlType = "DateEdit";
+                break;
+            case "SqlDataType.smallint":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.smallmoney":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.text":
+				strControlType = "MemoEdit";
+                break;
+            case "SqlDataType.timestamp":
+                break;
+            case "SqlDataType.tinyint":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.uniqueidentifier":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.userdefineddatatype":
+                break;
+            case "SqlDataType.userdefinedtype":
+                break;
+            case "SqlDataType.varbinary":
+                break;
+            case "SqlDataType.varbinarymax":
+                break;
+            case "SqlDataType.varchar":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.varcharmax":
+				strControlType = "TextEdit";
+                break;
+            case "SqlDataType.variant":
+                break;
+            case "SqlDataType.xml":
+				strControlType = "MemoEdit";
+                break;
+            case "SqlDataType.sysname":
+                break;
+            case "SqlDataType.numeric":
+				strControlType = "CalcEdit";
+                break;
+            case "SqlDataType.date":
+				strControlType = "DateEdit";
+                break;
+            case "SqlDataType.time":
+				strControlType = "TimeEdit";
+                break;
+            case "SqlDataType.datetimeoffset":
+				strControlType = "DateEdit";
+                break;
+            case "SqlDataType.datetime2":
+				strControlType = "DateEdit";
+                break;
+            case "SqlDataType.userdefinedtabletype":
+                break;
+            case "SqlDataType.hierarchyid":
+                break;
+            case "SqlDataType.geometry":
+                break;
+            case "SqlDataType.geography":
+                break;
+			default:
+				break;
+		}
+		return strControlType;
+	}
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="controlType"></param>
+	/// <param name="name"></param>
+	/// <param name="title"></param>
+	/// <param name="x"></param>
+	/// <param name="y"></param>
+	/// <param name="width"></param>
+	/// <param name="height"></param>
+	/// <param name="index"></param>
+	/// <returns></returns>
+	public string InitControlStr(string controlType,string name,string title,int x,int y,int width,int height,int index)
+	{
+		string strInitControl = string.Empty;
+		switch(controlType)
+		{
+			case "TextEdit":
+				strInitControl = @"
+
+            this.{5}_TextEdit.Name = ""{5}_TextEdit"";
+            this.{5}_TextEdit.StyleController = this.layoutControl1;
+            this.{5}_TextEdit.TabIndex = {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_TextEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title);		
+				break;
+			case "CheckEdit":
+				strInitControl = @"
+
+            this.{5}_CheckEdit.Name = ""{5}_CheckEdit"";
+			this.{5}_CheckEdit.Properties.Caption = ""{6}"";
+            this.{5}_CheckEdit.StyleController = this.layoutControl1;
+            this.{5}_CheckEdit.TabIndex = {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_CheckEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title);		
+				break;
+			case "ComboBoxEdit":
+				strInitControl = @"
+			
+			this.{5}_ComboBoxEdit.EditValue = ""请选择"";
+            this.{5}_ComboBoxEdit.Name = ""{5}_ComboBoxEdit"";
+            this.{5}_ComboBoxEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {7}
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo){8});
+            this.{5}_ComboBoxEdit.Properties.Items.AddRange(new object[] {7}
+            ""请选择"",
+            ""是"",
+            ""否""{8});
+            this.{5}_ComboBoxEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.{5}_ComboBoxEdit.StyleController = this.layoutControl1;
+            this.{5}_ComboBoxEdit.TabIndex = {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_ComboBoxEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title,"{","}");		
+				break;
+			case "DateEdit":
+				strInitControl = @"
+
+            this.{5}_DateEdit.EditValue = null;
+            this.{5}_DateEdit.Name = ""{5}_TextEdit"";
+            this.{5}_DateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {7}
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo){8});
+            this.{5}_DateEdit.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {7}
+            new DevExpress.XtraEditors.Controls.EditorButton(){8});
+            this.{5}_DateEdit.StyleController = this.layoutControl1;
+            this.{5}_DateEdit.TabIndex = {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_DateEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title,"{","}");				
+				break;
+			case "TimeEdit":
+				strInitControl = @"
+
+        	this.{5}_TimeEdit.EditValue = new System.DateTime(2011, 1, 1, 0, 0, 0, 0);
+            this.{5}_TimeEdit.Name = ""{5}_TimeEdit"";
+            this.{5}_TimeEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[]  {7}
+            new DevExpress.XtraEditors.Controls.EditorButton() {8});
+            this.{5}_TimeEdit.StyleController = this.layoutControl1;
+            this.{5}_TimeEdit.TabIndex =  {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_TimeEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title,"{","}");		
+				break;
+			case "PictureEdit":
+				strInitControl = @"
+
+            this.{5}_PictureEdit.Name = ""{5}_PictureEdit"";
+            this.{5}_PictureEdit.StyleController = this.layoutControl1;
+            this.{5}_PictureEdit.TabIndex = {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_PictureEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title);		
+				break;
+			case "MemoEdit":
+				strInitControl = @"
+
+            this.{5}_MemoEdit.Name = ""{5}_MemoEdit"";
+            this.{5}_MemoEdit.StyleController = this.layoutControl1;
+            this.{5}_MemoEdit.TabIndex = {4};
+
+            this.{5}_LayoutControlItem.Control = this.{5}_MemoEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title);		
+				break;
+			case "CalcEdit":
+				strInitControl = @"
+
+            this.{5}_CalcEdit.Name =  ""{5}_CalcEdit"";
+            this.{5}_CalcEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.{5}_CalcEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {7}
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo){8});
+            this.{5}_CalcEdit.StyleController = this.layoutControl1;
+            this.{5}_CalcEdit.TabIndex = {4};
+
+			this.{5}_LayoutControlItem.Control = this.{5}_CalcEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title,"{","}");			
+				break;
+			case "SpinEdit":
+				strInitControl = @"
+
+			this.{5}_SpinEdit.EditValue = new decimal(new int[] {7}
+            0,
+            0,
+            0,
+            0{8});
+            this.{5}_SpinEdit.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_SpinEdit.Name = ""{5}_SpinEdit"";
+            this.{5}_SpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[]{7}
+            new DevExpress.XtraEditors.Controls.EditorButton(){8});
+            this.{5}_SpinEdit.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_SpinEdit.StyleController = this.layoutControl1;
+            this.{5}_SpinEdit.TabIndex = {4};
+			
+			this.{5}_LayoutControlItem.Control = this.{5}_SpinEdit;
+            this.{5}_LayoutControlItem.CustomizationFormText = ""{6}"";
+            this.{5}_LayoutControlItem.Location = new System.Drawing.Point({0}, {1});
+            this.{5}_LayoutControlItem.Name = ""{5}_LayoutControlItem"";
+            this.{5}_LayoutControlItem.Size = new System.Drawing.Size({2}, {3});
+            this.{5}_LayoutControlItem.Text = ""{6}"";
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index,name,title,"{","}");			
+				break;
+			default:
+				strInitControl = @"	
+			this.NoControl{4}_EmptySpaceItem.CustomizationFormText = ""NoControl{4}_EmptySpaceItem"";
+            this.NoControl{4}_EmptySpaceItem.Location = new System.Drawing.Point({0}, {1});
+            this.NoControl{4}_EmptySpaceItem.Name = ""NoControl{4}_EmptySpaceItem"";
+            this.NoControl{4}_EmptySpaceItem.Size = new System.Drawing.Size({2}, {3});
+            this.NoControl{4}_EmptySpaceItem.Text = ""NoControl{4}_EmptySpaceItem"";
+            this.NoControl{4}_EmptySpaceItem.TextSize = new System.Drawing.Size(0, 0);
+											";
+				strInitControl = string.Format(strInitControl,x,y,width,height,index);		
+				break;
+		}
+		return strInitControl;
+	}
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="controlType"></param>
+	/// <param name="name"></param>
+	/// <param name="dbType"></param>
+	/// <param name="netType"></param>
+	/// <param name="objName"></param>
+	/// <returns></returns>
+	public string GetControlValueStr(string controlType,string name,string dbType,string netType,string paramDicName)
+	{
+		string strGetValue = string.Empty;
+		switch(controlType)
+		{
+			case "TextEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_TextEdit.Text.Trim() != string.Empty )
+				{2}
+					{1}.Add(""{0}"", {0}_TextEdit.Text.Trim());
+				{3}
+				";
+				strGetValue = string.Format(strGetValue,name,paramDicName,"{","}");
+				break;
+			case "CheckEdit":
+				break;
+			case "ComboBoxEdit":
+				if(dbType.ToLower().Equals("bit"))
+				{
+					strGetValue =@"
+					if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_ComboBoxEdit.Text != ""请选择"" )
+					{2}
+						{1}.Add(""{0}"",{0}_ComboBoxEdit.Text==""是""?true:false);
+					{3}
+					";
+					strGetValue = string.Format(strGetValue,name,paramDicName,"{","}");
+				}
+				break;
+			case "DateEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_DateEdit.DateTime != null && {0}_DateEdit.Text != string.Empty)
+				{3}
+					var value = new {2}();
+					if({2}.TryParse({0}_DateEdit.DateTime.ToString(""yyyy-MM-dd""),out value))
+					{3}
+						{1}.Add(""{0}"",value);
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,paramDicName,netType,"{","}");
+				break;
+			case "TimeEdit":
+				break;
+			case "PictureEdit":
+				break;
+			case "MemoEdit":
+				break;
+			case "SpinEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_SpinEdit.Value != null)
+				{3}
+					var value = new {2}();
+					if({2}.TryParse({0}_SpinEdit.Value.ToString(),out value))
+					{3}
+						{1}.Add(""{0}"",value);
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,paramDicName,netType,"{","}");
+				break;
+			case "CalcEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_CalcEdit.Value != null && {0}_CalcEdit.Text != string.Empty)
+				{3}
+					var value = new {2}();
+					if({2}.TryParse({0}_CalcEdit.Value.ToString(),out value))
+					{3}
+						{1}.Add(""{0}"",value);
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,paramDicName,netType,"{","}");
+				break;
+			default:
+				strGetValue = @"
+				//{0} doesn't have a match control
+				";
+				strGetValue = string.Format(strGetValue,name);
+				break;
+		}
+		return strGetValue;
+	}
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="controlType"></param>
+	/// <param name="name"></param>
+	/// <param name="dbType"></param>
+	/// <param name="netType"></param>
+	/// <param name="objName"></param>
+	/// <param name="keyListName"></param>
+	/// <returns></returns>
+	public string GetControlValueStr(string controlType,string name,string dbType,string netType,string objName,string keyListName)
+	{
+		string strGetValue = string.Empty;
+		switch(controlType)
+		{
+			case "TextEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_TextEdit.Text.Trim() != string.Empty )
+				{3}
+					{2}.Add(""{0}"");
+					{1}.{0} = {0}_TextEdit.Text.Trim();
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,keyListName,"{","}");
+				break;
+			case "CheckEdit":
+				break;
+			case "ComboBoxEdit":
+				if(dbType.ToLower().Equals("bit"))
+				{
+					strGetValue =@"
+					if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_ComboBoxEdit.Text != ""请选择"" )
+					{3}
+						{2}.Add(""{0}"");
+						{1}.{0} = {0}_ComboBoxEdit.Text==""是""?true:false;
+					{4}
+					";
+					strGetValue = string.Format(strGetValue,name,objName,keyListName,"{","}");
+				}
+				break;
+			case "DateEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_DateEdit.DateTime != null && {0}_DateEdit.Text != string.Empty)
+				{3}
+					var value = new {5}();
+					if({5}.TryParse({0}_DateEdit.DateTime.ToString(""yyyy-MM-dd""),out value))
+					{3}
+						{2}.Add(""{0}"");
+						{1}.{0} = value;
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,keyListName,"{","}",netType);
+				break;
+			case "TimeEdit":
+				break;
+			case "PictureEdit":
+				break;
+			case "MemoEdit":
+				break;
+			case "SpinEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_SpinEdit.Value != null)
+				{3}
+					var value = new {5}();
+					if({5}.TryParse({0}_SpinEdit.Value.ToString(),out value))
+					{3}
+						{2}.Add(""{0}"");
+						{1}.{0} = value;
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,keyListName,"{","}",netType);
+				break;
+			case "CalcEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_CalcEdit.Value != null && {0}_CalcEdit.Text != string.Empty)
+				{3}
+					var value = new {5}();
+					if({5}.TryParse({0}_CalcEdit.Value.ToString(),out value))
+					{3}
+						{2}.Add(""{0}"");
+						{1}.{0} = value;
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,keyListName,"{","}",netType);
+				break;
+			default:
+				strGetValue = @"
+				//{0} doesn't have a match control
+				";
+				strGetValue = string.Format(strGetValue,name);
+				break;
+		}
+		return strGetValue;
+	}
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="controlType"></param>
+	/// <param name="name"></param>
+	/// <param name="dbType"></param>
+	/// <param name="netType"></param>
+	/// <param name="objName"></param>
+	/// <param name="mappedList"></param>
+	/// <returns></returns>
+	public string MapModelValueStr(string controlType,string name,string dbType,string netType,string objName,string mappedList)
+	{
+		string strGetValue = string.Empty;
+		switch(controlType)
+		{
+			case "TextEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_TextEdit.Text.Trim() != string.Empty )
+				{2}
+					{4}.Add(""{0}"");
+					{1}.{0} = {0}_TextEdit.Text.Trim();
+				{3}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,"{","}",mappedList);
+				break;
+			case "CheckEdit":
+				break;
+			case "ComboBoxEdit":
+				if(dbType.ToLower().Equals("bit"))
+				{
+					strGetValue =@"
+					if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_ComboBoxEdit.Text != ""请选择"" )
+					{2}
+						{4}.Add(""{0}"");
+						{1}.{0} = {0}_ComboBoxEdit.Text==""是""?true:false;
+					{3}
+					";
+					strGetValue = string.Format(strGetValue,name,objName,"{","}",mappedList);
+				}
+				break;
+			case "DateEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_DateEdit.DateTime != null && {0}_DateEdit.Text != string.Empty)
+				{3}
+					var value = new {2}();
+					if({2}.TryParse({0}_DateEdit.DateTime.ToString(""yyyy-MM-dd HH:mm:ss""),out value))
+					{3}
+						{5}.Add(""{0}"");
+						{1}.{0} = value;
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,netType,"{","}",mappedList);
+				break;
+			case "TimeEdit":
+				break;
+			case "PictureEdit":
+				break;
+			case "MemoEdit":
+				break;
+			case "SpinEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_SpinEdit.Value != null)
+				{3}
+					var value = new {2}();
+					if({2}.TryParse({0}_SpinEdit.Value.ToString(),out value))
+					{3}
+						{5}.Add(""{0}"");
+						{1}.{0} = value;
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,netType,"{","}",mappedList);
+				break;
+			case "CalcEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_CalcEdit.Value != null && {0}_CalcEdit.Text != string.Empty)
+				{3}
+					var value = new {2}();
+					if({2}.TryParse({0}_CalcEdit.Value.ToString(),out value))
+					{3}
+						{5}.Add(""{0}"");
+						{1}.{0} = value;
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,netType,"{","}",mappedList);
+				break;
+			default:
+				strGetValue = @"
+				//{0} doesn't have a match control
+				";
+				strGetValue = string.Format(strGetValue,name);
+				break;
+		}
+		return strGetValue;
+	}
+	
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="controlType"></param>
+	/// <param name="name"></param>
+	/// <param name="dbType"></param>
+	/// <param name="netType"></param>
+	/// <param name="objName"></param>
+	/// <param name="isNullable"></param>
+	/// <returns></returns>
+	public string SetControlValueStr(string controlType,string name,string dbType,string netType,string objName,bool isNullable)
+	{
+		string strGetValue = string.Empty;
+		switch(controlType)
+		{
+			case "TextEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always)
+				{2}
+					if({1}.{0}!=null)
+					{2}
+					 	{0}_TextEdit.Text = {1}.{0}.Trim();
+					{3}
+				{3}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,"{","}");
+				break;
+			case "CheckEdit":
+				break;
+			case "ComboBoxEdit":
+				if(dbType.ToLower().Equals("bit"))
+				{
+					strGetValue =@"
+					if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always)
+					{2}
+						if({1}.{0}!=null)
+						{2}
+							{0}_ComboBoxEdit.Text = {1}.{0}{4}?""是"":""否"";
+						{3}
+					{3}
+					";
+					strGetValue = string.Format(strGetValue,name,objName,"{","}",isNullable?".Value":"");
+				}
+				break;
+			case "DateEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always)
+				{3}
+					if({1}.{0}!=null)
+					{3}
+						{0}_DateEdit.DateTime = {1}.{0}{5};
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,netType,"{","}",isNullable?".Value":"");
+				break;
+			case "TimeEdit":
+				break;
+			case "PictureEdit":
+				break;
+			case "MemoEdit":
+				break;
+			case "SpinEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always && {0}_SpinEdit.Value != null)
+				{3}
+					if({1}.{0}!=null)
+					{3}
+						{0}_SpinEdit.Value = Convert.ToDecimal({1}.{0}{5});
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,netType,"{","}",isNullable?".Value":"");
+				break;
+			case "CalcEdit":
+				strGetValue =@"
+				if({0}_LayoutControlItem.Visibility == LayoutVisibility.Always)
+				{3}
+					if({1}.{0}!=null)
+					{3}
+						{0}_CalcEdit.Value = Convert.ToDecimal({1}.{0}{5});
+					{4}
+				{4}
+				";
+				strGetValue = string.Format(strGetValue,name,objName,netType,"{","}",isNullable?".Value":"");
+				break;
+			default:
+				strGetValue = @"
+				//{0} doesn't have a match control
+				";
+				strGetValue = string.Format(strGetValue,name);
+				break;
+		}
+		return strGetValue;
+	}
+}
+#>
